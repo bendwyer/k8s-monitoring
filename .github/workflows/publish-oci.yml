@@ -1,0 +1,26 @@
+---
+name: publish-oci
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  publish:
+    uses: bendwyer/github-workflows/.github/workflows/k8s-monitoring-publish-oci.yml@main
+    with:
+      oci_repo: ghcr.io/bendwyer/k8s-monitoring
+    secrets:
+      ghcr_token: ${{ secrets.GITHUB_TOKEN }}
+
+  check:
+    if: always()
+    needs:
+      - publish
+    uses: bendwyer/github-workflows/.github/workflows/github-check.yml@main
+    with:
+      jobs: ${{ toJSON(needs) }}

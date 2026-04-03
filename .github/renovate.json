@@ -1,0 +1,38 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "dependencyDashboard": false,
+  "labels": ["dependencies"],
+  "rebaseWhen": "behind-base-branch",
+  "separateMinorPatch": true,
+  "github-actions": { "enabled": false },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["^jsonnetfile\\.json$"],
+      "matchStrings": [
+        "\"remote\":\\s*\"https://github\\.com/(?<depName>[^\"]+?)(?:\\.git)?\"[\\s\\S]*?\"version\":\\s*\"(?<currentValue>[^\"]+)\""
+      ],
+      "datasourceTemplate": "github-tags",
+      "versioningTemplate": "semver-coerced"
+    }
+  ],
+  "postUpgradeTasks": {
+    "commands": ["jb update"],
+    "fileFilters": ["jsonnetfile.json", "jsonnetfile.lock.json"]
+  },
+  "packageRules": [
+    {
+      "description": "Automerge patch+minor for >=1.x",
+      "matchCurrentVersion": "/^v?[1-9]/",
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "description": "Automerge patch only for 0.x",
+      "matchCurrentVersion": "/^v?0\\./",
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
+    }
+  ]
+}
