@@ -1,5 +1,5 @@
 {
-  "flux-operator": "1.0.0",
+  "flux": "1.0.0",
   "longhorn": "1.0.0",
   "k8up": "1.0.0"
 }
