@@ -6,17 +6,8 @@
   "rebaseWhen": "behind-base-branch",
   "separateMinorPatch": true,
   "github-actions": { "enabled": false },
-  "customManagers": [
-    {
-      "customType": "regex",
-      "fileMatch": ["^jsonnetfile\\.json$"],
-      "matchStrings": [
-        "\"remote\":\\s*\"https://github\\.com/(?<depName>[^\"]+?)(?:\\.git)?\"[\\s\\S]*?\"version\":\\s*\"(?<currentValue>[^\"]+)\""
-      ],
-      "datasourceTemplate": "github-tags",
-      "versioningTemplate": "semver-coerced"
-    }
-  ],
+  "kustomize": { "enabled": false },
+  "jsonnet-bundler": { "versioning": "semver-coerced" },
   "postUpgradeTasks": {
     "commands": ["jb update"],
     "fileFilters": ["jsonnetfile.json", "jsonnetfile.lock.json"]
