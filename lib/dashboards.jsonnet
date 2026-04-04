@@ -3,9 +3,34 @@
 // to subdirectories matching the OCI artifact names.
 //
 // All dashboards are included — filtering is the consumer's responsibility.
+//
+// Each mixin is imported independently and only receives the shared config
+// overrides (selectors, cluster label, etc.). This prevents config fields
+// like dashboardTags from bleeding between mixins.
 
-local config = import '../mixin.libsonnet';
-local withConfig(mixin) = mixin + { _config+:: config._config };
+local sharedConfig = {
+  clusterLabel: 'cluster',
+  grafanaDatasourceName: 'Prometheus',
+  cadvisorSelector: 'job="kubelet"',
+  kubeletSelector: 'job="kubelet"',
+  kubeStateMetricsSelector: 'job="kube-state-metrics"',
+  nodeExporterSelector: 'job="node-exporter"',
+  kubeApiserverSelector: 'job="apiserver"',
+  kubeSchedulerSelector: 'job="kube-scheduler"',
+  kubeControllerManagerSelector: 'job="kube-controller-manager"',
+  kubeProxySelector: 'job="kube-proxy"',
+  alertmanagerSelector: 'job="alertmanager"',
+  prometheusSelector: 'job="prometheus"',
+  showMultiCluster: false,
+};
+
+local withConfig(mixin) = mixin + { _config+:: sharedConfig };
+
+// Default tags to mixin name if the dashboard has no tags
+local ensureTags(mixin, dashboard) =
+  if std.objectHas(dashboard, 'tags') && std.length(dashboard.tags) > 0
+  then dashboard
+  else dashboard + { tags: [mixin] };
 
 local mixins = {
   'kubernetes-mixin':
@@ -23,7 +48,7 @@ local mixins = {
 };
 
 {
-  [mixin + '/' + name]: mixins[mixin][name]
+  [mixin + '/' + name]: ensureTags(mixin, mixins[mixin][name])
   for mixin in std.objectFields(mixins)
   for name in std.objectFields(mixins[mixin])
 }
