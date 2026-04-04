@@ -1376,7 +1376,7 @@
     ]
   },
   "timezone": "",
-  "title": "Flux Cluster Stats",
+  "title": "Flux / Cluster Stats",
   "uid": "flux-cluster",
   "version": 4,
   "weekStart": ""
