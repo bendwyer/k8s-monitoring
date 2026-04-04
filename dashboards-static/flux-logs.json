@@ -1,14 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_LOKI",
-      "label": "Loki",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "loki",
-      "pluginName": "Loki"
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -46,16 +36,14 @@
     ]
   },
   "description": "Flux logs collected from Kubernetes, stored in Loki",
-  "editable": true,
-  "gnetId": null,
+  "editable": false,
   "graphTooltip": 0,
-  "id": 29,
-  "iteration": 1653748775696,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
     {
-      "datasource": "${DS_LOKI}",
+      "datasource": "${datasource}",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -127,7 +115,7 @@
       },
       "targets": [
         {
-          "datasource": "${DS_LOKI}",
+          "datasource": "${datasource}",
           "expr": "sum(count_over_time({namespace=~\"$namespace\", stream=~\"$stream\", app =~\"$controller\"} | json | __error__!=\"JSONParserErr\" | level=~\"$level\" |= \"$query\" [$__interval]))",
           "instant": false,
           "legendFormat": "Log count",
@@ -138,7 +126,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": "${DS_LOKI}",
+      "datasource": "${datasource}",
       "description": "Logs from services running in Kubernetes",
       "gridPos": {
         "h": 25,
@@ -159,7 +147,7 @@
       },
       "targets": [
         {
-          "datasource": "${DS_LOKI}",
+          "datasource": "${datasource}",
           "expr": "{namespace=~\"$namespace\", stream=~\"$stream\", app =~\"$controller\"} | json | __error__!=\"JSONParserErr\" | level=~\"$level\" |= \"$query\"",
           "refId": "A"
         }
@@ -175,6 +163,18 @@
   ],
   "templating": {
     "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "Loki",
+          "value": "Loki"
+        },
+        "hide": 0,
+        "label": "Data Source",
+        "name": "datasource",
+        "query": "loki",
+        "type": "datasource"
+      },
       {
         "current": {
           "selected": false,
@@ -240,7 +240,7 @@
             "$__all"
           ]
         },
-        "datasource": "${DS_LOKI}",
+        "datasource": "${datasource}",
         "definition": "label_values(app)",
         "hide": 0,
         "includeAll": true,
@@ -265,7 +265,7 @@
             "flux-system"
           ]
         },
-        "datasource": "${DS_LOKI}",
+        "datasource": "${datasource}",
         "definition": "label_values(namespace)",
         "hide": 0,
         "includeAll": true,
@@ -286,7 +286,7 @@
           "text": "All",
           "value": "$__all"
         },
-        "datasource": "${DS_LOKI}",
+        "datasource": "${datasource}",
         "definition": "label_values(stream)",
         "hide": 0,
         "includeAll": true,
@@ -328,5 +328,5 @@
   "timezone": "",
   "title": "Flux / Logs",
   "uid": "flux-logs",
-  "version": 2
+  "version": 0
 }
