@@ -1,0 +1,22 @@
+{
+  "flux": {
+    "version": "1.0.0",
+    "files": [
+      "flux-cluster.json",
+      "flux-control-plane.json",
+      "flux-logs.json"
+    ]
+  },
+  "longhorn": {
+    "version": "1.0.0",
+    "files": [
+      "longhorn.json"
+    ]
+  },
+  "k8up": {
+    "version": "1.0.0",
+    "files": [
+      "k8up.json"
+    ]
+  }
+}
