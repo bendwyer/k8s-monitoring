@@ -2715,7 +2715,9 @@
   "refresh": "5s",
   "schemaVersion": 26,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "longhorn"
+  ],
   "templating": {
     "list": []
   },
@@ -2738,7 +2740,7 @@
     ]
   },
   "timezone": "",
-  "title": "Longhorn Example v1.4.0",
+  "title": "Longhorn",
   "uid": "2BCgsldGz",
   "version": 22
 }
