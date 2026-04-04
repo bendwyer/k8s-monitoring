@@ -1132,7 +1132,9 @@
   ],
   "refresh": "",
   "schemaVersion": 38,
-  "tags": [],
+  "tags": [
+    "k8up"
+  ],
   "templating": {
     "list": [
       {
