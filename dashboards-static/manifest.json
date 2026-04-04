@@ -8,13 +8,13 @@
     ]
   },
   "longhorn": {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "files": [
       "longhorn.json"
     ]
   },
   "k8up": {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "files": [
       "k8up.json"
     ]
