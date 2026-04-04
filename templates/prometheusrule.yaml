@@ -1,0 +1,8 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: ${RULE_NAME}
+  labels:
+    app.kubernetes.io/part-of: k8s-monitoring
+spec:
