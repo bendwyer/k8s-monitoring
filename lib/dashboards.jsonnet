@@ -8,23 +8,7 @@
 // overrides (selectors, cluster label, etc.). This prevents config fields
 // like dashboardTags from bleeding between mixins.
 
-local sharedConfig = {
-  clusterLabel: 'cluster',
-  grafanaDatasourceName: 'Prometheus',
-  cadvisorSelector: 'job="kubelet"',
-  kubeletSelector: 'job="kubelet"',
-  kubeStateMetricsSelector: 'job="kube-state-metrics"',
-  nodeExporterSelector: 'job="node-exporter"',
-  kubeApiserverSelector: 'job="apiserver"',
-  kubeSchedulerSelector: 'job="kube-scheduler"',
-  kubeControllerManagerSelector: 'job="kube-controller-manager"',
-  kubeProxySelector: 'job="kube-proxy"',
-  alertmanagerSelector: 'job="alertmanager"',
-  prometheusSelector: 'job="prometheus"',
-  showMultiCluster: false,
-};
-
-local withConfig(mixin) = mixin + { _config+:: sharedConfig };
+local mixins = import 'mixins.libsonnet';
 
 // Default tags to mixin name if the dashboard has no tags
 local ensureTags(mixin, dashboard) =
@@ -32,23 +16,9 @@ local ensureTags(mixin, dashboard) =
   then dashboard
   else dashboard + { tags: [mixin] };
 
-local mixins = {
-  'kubernetes-mixin':
-    withConfig(import 'kubernetes-mixin/mixin.libsonnet').grafanaDashboards,
-  'grafana-mixin':
-    withConfig(import 'grafana-mixin/mixin.libsonnet').grafanaDashboards,
-  'prometheus-mixin':
-    withConfig(import 'prometheus-mixin/mixin.libsonnet').grafanaDashboards,
-  'node-exporter-mixin':
-    withConfig(import 'node-mixin/mixin.libsonnet').grafanaDashboards,
-  'alertmanager-mixin':
-    withConfig(import 'alertmanager-mixin/mixin.libsonnet').grafanaDashboards,
-  'loki-mixin':
-    withConfig(import 'loki-mixin/mixin.libsonnet').grafanaDashboards,
-};
-
 {
-  [mixin + '/' + name]: ensureTags(mixin, mixins[mixin][name])
+  [mixin + '/' + name]: ensureTags(mixin, mixins[mixin].grafanaDashboards[name])
   for mixin in std.objectFields(mixins)
-  for name in std.objectFields(mixins[mixin])
+  if std.objectHasAll(mixins[mixin], 'grafanaDashboards')
+  for name in std.objectFields(mixins[mixin].grafanaDashboards)
 }
