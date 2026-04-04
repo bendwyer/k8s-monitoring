@@ -1,3 +1,4 @@
 vendor/
 dashboards_out/
-out/
+alerts_out/
+rules_out/
