@@ -1,10 +1,13 @@
 JSONNET_FMT := jsonnetfmt -n 2 --max-blank-lines 2 --string-style s --comment-style s
-OUT_DIR := dashboards_out
+DASHBOARDS_DIR := dashboards_out
+ALERTS_DIR := alerts_out
+RULES_DIR := rules_out
 
 # Mixin artifacts (subdirectories created before jsonnet build)
 MIXIN_ARTIFACTS := \
 	alertmanager-mixin \
 	grafana-mixin \
+	kube-state-metrics-mixin \
 	kubernetes-mixin \
 	loki-mixin \
 	node-exporter-mixin \
@@ -26,30 +29,43 @@ vendor: jsonnetfile.json
 generate: vendor dashboards dashboards-static alerts rules
 
 dashboards: vendor
-	@for artifact in $(MIXIN_ARTIFACTS); do mkdir -p $(OUT_DIR)/$$artifact; done
-	jsonnet -J vendor -m $(OUT_DIR) lib/dashboards.jsonnet
+	@for artifact in $(MIXIN_ARTIFACTS); do mkdir -p $(DASHBOARDS_DIR)/$$artifact; done
+	jsonnet -J vendor -m $(DASHBOARDS_DIR) lib/dashboards.jsonnet
 
 dashboards-static:
 	@for entry in $(STATIC_MAP); do \
 		component=$${entry%%:*}; \
 		files=$${entry#*:}; \
-		mkdir -p $(OUT_DIR)/$$component; \
+		mkdir -p $(DASHBOARDS_DIR)/$$component; \
 		for file in $$(echo $$files | tr ',' ' '); do \
-			cp dashboards-static/$$file $(OUT_DIR)/$$component/; \
+			cp dashboards-static/$$file $(DASHBOARDS_DIR)/$$component/; \
 		done; \
 	done
 
 alerts: vendor
-	@mkdir -p out
-	jsonnet -J vendor -S lib/alerts.jsonnet > out/alerts.yaml
+	@for artifact in $(MIXIN_ARTIFACTS); do \
+		mkdir -p $(ALERTS_DIR)/$$artifact; \
+		output=$$(jsonnet -J vendor -S --ext-str mixin=$$artifact lib/alerts.jsonnet); \
+		if [ -n "$$output" ]; then \
+			echo "$$output" > $(ALERTS_DIR)/$$artifact/alerts.yml; \
+			echo "$(ALERTS_DIR)/$$artifact/alerts.yml"; \
+		fi; \
+	done
 
 rules: vendor
-	@mkdir -p out
-	jsonnet -J vendor -S lib/rules.jsonnet > out/rules.yaml
+	@for artifact in $(MIXIN_ARTIFACTS); do \
+		mkdir -p $(RULES_DIR)/$$artifact; \
+		output=$$(jsonnet -J vendor -S --ext-str mixin=$$artifact lib/rules.jsonnet); \
+		if [ -n "$$output" ]; then \
+			echo "$$output" > $(RULES_DIR)/$$artifact/rules.yml; \
+			echo "$(RULES_DIR)/$$artifact/rules.yml"; \
+		fi; \
+	done
+
 
 fmt:
 	find . -name 'vendor' -prune -o -name '*.libsonnet' -print -o -name '*.jsonnet' -print | \
 		xargs -n 1 -- $(JSONNET_FMT) -i
 
 clean:
-	rm -rf $(OUT_DIR) out vendor
+	rm -rf $(DASHBOARDS_DIR) $(ALERTS_DIR) $(RULES_DIR) vendor
