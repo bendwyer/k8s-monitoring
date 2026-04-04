@@ -8,21 +8,7 @@
 // overrides (selectors, cluster label, etc.). This prevents config fields
 // like dashboardTags from bleeding between mixins.
 
-local sharedConfig = {
-  clusterLabel: 'cluster',
-  grafanaDatasourceName: 'Prometheus',
-  cadvisorSelector: 'job="kubelet"',
-  kubeletSelector: 'job="kubelet"',
-  kubeStateMetricsSelector: 'job="kube-state-metrics"',
-  nodeExporterSelector: 'job="node-exporter"',
-  kubeApiserverSelector: 'job="apiserver"',
-  kubeSchedulerSelector: 'job="kube-scheduler"',
-  kubeControllerManagerSelector: 'job="kube-controller-manager"',
-  kubeProxySelector: 'job="kube-proxy"',
-  alertmanagerSelector: 'job="alertmanager"',
-  prometheusSelector: 'job="prometheus"',
-  showMultiCluster: false,
-};
+local sharedConfig = import 'config.libsonnet';
 
 local withConfig(mixin) = mixin + { _config+:: sharedConfig };
 
