@@ -116,7 +116,7 @@
       "targets": [
         {
           "datasource": "${datasource}",
-          "expr": "sum(count_over_time({k8s_namespace_name=~\"$namespace\", stream=~\"$stream\", k8s_deployment_name=~\"$controller\"} | json | __error__!=\"JSONParserErr\" | level=~\"$level\" |= \"$query\" [$__interval]))",
+          "expr": "sum(count_over_time({k8s_namespace_name=~\"$namespace\", k8s_deployment_name=~\"$controller\"} | json | __error__!=\"JSONParserErr\" | level=~\"$level\" |= \"$query\" [$__interval]))",
           "instant": false,
           "legendFormat": "Log count",
           "range": true,
@@ -148,7 +148,7 @@
       "targets": [
         {
           "datasource": "${datasource}",
-          "expr": "{k8s_namespace_name=~\"$namespace\", stream=~\"$stream\", k8s_deployment_name=~\"$controller\"} | json | __error__!=\"JSONParserErr\" | level=~\"$level\" |= \"$query\"",
+          "expr": "{k8s_namespace_name=~\"$namespace\", k8s_deployment_name=~\"$controller\"} | json | __error__!=\"JSONParserErr\" | level=~\"$level\" |= \"$query\"",
           "refId": "A"
         }
       ],
@@ -273,27 +273,6 @@
         "name": "namespace",
         "options": [],
         "query": "label_values(k8s_namespace_name)",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "type": "query"
-      },
-      {
-        "allValue": ".+",
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": "${datasource}",
-        "definition": "label_values(stream)",
-        "hide": 0,
-        "includeAll": true,
-        "multi": true,
-        "name": "stream",
-        "options": [],
-        "query": "label_values(stream)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
