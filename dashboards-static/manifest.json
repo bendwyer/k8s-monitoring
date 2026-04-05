@@ -18,5 +18,11 @@
     "files": [
       "k8up.json"
     ]
+  },
+  "opentelemetry-collector": {
+    "version": "1.0.0",
+    "files": [
+      "opentelemetry-collector.json"
+    ]
   }
 }
