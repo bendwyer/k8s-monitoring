@@ -116,7 +116,7 @@
       "targets": [
         {
           "datasource": "${datasource}",
-          "expr": "sum(count_over_time({namespace=~\"$namespace\", stream=~\"$stream\", app =~\"$controller\"} | json | __error__!=\"JSONParserErr\" | level=~\"$level\" |= \"$query\" [$__interval]))",
+          "expr": "sum(count_over_time({k8s_namespace_name=~\"$namespace\", stream=~\"$stream\", k8s_deployment_name=~\"$controller\"} | json | __error__!=\"JSONParserErr\" | level=~\"$level\" |= \"$query\" [$__interval]))",
           "instant": false,
           "legendFormat": "Log count",
           "range": true,
@@ -148,7 +148,7 @@
       "targets": [
         {
           "datasource": "${datasource}",
-          "expr": "{namespace=~\"$namespace\", stream=~\"$stream\", app =~\"$controller\"} | json | __error__!=\"JSONParserErr\" | level=~\"$level\" |= \"$query\"",
+          "expr": "{k8s_namespace_name=~\"$namespace\", stream=~\"$stream\", k8s_deployment_name=~\"$controller\"} | json | __error__!=\"JSONParserErr\" | level=~\"$level\" |= \"$query\"",
           "refId": "A"
         }
       ],
@@ -241,13 +241,13 @@
           ]
         },
         "datasource": "${datasource}",
-        "definition": "label_values(app)",
+        "definition": "label_values(k8s_deployment_name)",
         "hide": 0,
         "includeAll": true,
         "multi": true,
         "name": "controller",
         "options": [],
-        "query": "label_values(app)",
+        "query": "label_values(k8s_deployment_name)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -266,13 +266,13 @@
           ]
         },
         "datasource": "${datasource}",
-        "definition": "label_values(namespace)",
+        "definition": "label_values(k8s_namespace_name)",
         "hide": 0,
         "includeAll": true,
         "multi": true,
         "name": "namespace",
         "options": [],
-        "query": "label_values(namespace)",
+        "query": "label_values(k8s_namespace_name)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -299,24 +299,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "type": "query"
-      },
-      {
-        "current": {
-          "selected": false,
-          "text": "Loki",
-          "value": "Loki"
-        },
-        "hide": 0,
-        "includeAll": false,
-        "label": "Datasource",
-        "multi": false,
-        "name": "DS_LOKI",
-        "options": [],
-        "query": "loki",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "type": "datasource"
       }
     ]
   },
