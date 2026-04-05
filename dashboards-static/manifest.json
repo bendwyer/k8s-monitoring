@@ -24,5 +24,11 @@
     "files": [
       "opentelemetry-collector.json"
     ]
+  },
+  "loki": {
+    "version": "1.0.0",
+    "files": [
+      "loki.json"
+    ]
   }
 }
