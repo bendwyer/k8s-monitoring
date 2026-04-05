@@ -1,6 +1,6 @@
 {
   "flux": {
-    "version": "1.0.2",
+    "version": "1.0.3",
     "files": [
       "flux-cluster.json",
       "flux-control-plane.json",
