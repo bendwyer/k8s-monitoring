@@ -143,7 +143,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "otelcol_process_uptime_seconds_total{deployment_environment_name=~\"$deployment_environment_name\", k8s_cluster_name=~\"$k8s_cluster_name\", k8s_node_name=~\"$k8s_node_name\", host_name=~\"$host_name\", service_instance_id=~\"$service_instance_id\", service_name=~\"$service_name\"}",
+          "expr": "otelcol_process_uptime_seconds_total{job=~\"$job\"}",
           "format": "table",
           "instant": true,
           "legendFormat": "{{service_name}} {{service_instance_id}}",
@@ -210,7 +210,7 @@
       },
       "id": 56,
       "options": {
-        "alertInstanceLabelFilter": "deployment_environment_name=~\"$deployment_environment_name\", k8s_cluster_name=~\"$k8s_cluster_name\", k8s_node_name=~\"$k8s_node_name\", host_name=~\"$host_name\", service_instance_id=~\"$service_instance_id\", service_name=~\"$service_name\"",
+        "alertInstanceLabelFilter": "job=~\"$job\"",
         "alertName": "OpenTelemetryCollector",
         "dashboardAlerts": false,
         "groupBy": [],
@@ -364,7 +364,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(otelcol_receiver_accepted_spans_total{deployment_environment_name=~\"$deployment_environment_name\",k8s_cluster_name=~\"$k8s_cluster_name\",k8s_node_name=~\"$k8s_node_name\",host_name=~\"$host_name\",service_instance_id=~\"$service_instance_id\",service_name=~\"$service_name\"}[$__rate_interval]))\n+\nsum(rate(otelcol_receiver_refused_spans_total{deployment_environment_name=~\"$deployment_environment_name\",k8s_cluster_name=~\"$k8s_cluster_name\",k8s_node_name=~\"$k8s_node_name\",host_name=~\"$host_name\",service_instance_id=~\"$service_instance_id\",service_name=~\"$service_name\"}[$__rate_interval]))",
+          "expr": "sum(rate(otelcol_receiver_accepted_spans_total{job=~\"$job\"}[$__rate_interval]))\n+\nsum(rate(otelcol_receiver_refused_spans_total{job=~\"$job\"}[$__rate_interval]))",
           "instant": false,
           "legendFormat": "Span Rate",
           "queryType": "range",
@@ -570,7 +570,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(otelcol_receiver_accepted_log_records_total{deployment_environment_name=~\"$deployment_environment_name\",k8s_cluster_name=~\"$k8s_cluster_name\",k8s_node_name=~\"$k8s_node_name\",host_name=~\"$host_name\",service_instance_id=~\"$service_instance_id\",service_name=~\"$service_name\"}[$__rate_interval]))\n+\nsum(rate(otelcol_receiver_refused_log_records_total{deployment_environment_name=~\"$deployment_environment_name\",k8s_cluster_name=~\"$k8s_cluster_name\",k8s_node_name=~\"$k8s_node_name\",host_name=~\"$host_name\",service_instance_id=~\"$service_instance_id\",service_name=~\"$service_name\"}[$__rate_interval]))",
+          "expr": "sum(rate(otelcol_receiver_accepted_log_records_total{job=~\"$job\"}[$__rate_interval]))\n+\nsum(rate(otelcol_receiver_refused_log_records_total{job=~\"$job\"}[$__rate_interval]))",
           "instant": false,
           "legendFormat": "Logs",
           "queryType": "range",
@@ -805,7 +805,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(otelcol_receiver_accepted_metric_points_total{deployment_environment_name=~\"$deployment_environment_name\",k8s_cluster_name=~\"$k8s_cluster_name\",k8s_node_name=~\"$k8s_node_name\",host_name=~\"$host_name\",service_instance_id=~\"$service_instance_id\",service_name=~\"$service_name\"}[$__rate_interval]))\n+\nsum(rate(otelcol_receiver_refused_metric_points_total{deployment_environment_name=~\"$deployment_environment_name\",k8s_cluster_name=~\"$k8s_cluster_name\",k8s_node_name=~\"$k8s_node_name\",host_name=~\"$host_name\",service_instance_id=~\"$service_instance_id\",service_name=~\"$service_name\"}[$__rate_interval]))",
+          "expr": "sum(rate(otelcol_receiver_accepted_metric_points_total{job=~\"$job\"}[$__rate_interval]))\n+\nsum(rate(otelcol_receiver_refused_metric_points_total{job=~\"$job\"}[$__rate_interval]))",
           "instant": false,
           "legendFormat": "Metrics",
           "queryType": "range",
@@ -1799,7 +1799,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(otelcol_exporter_sent_spans_total{deployment_environment_name=~\"$deployment_environment_name\",k8s_cluster_name=~\"$k8s_cluster_name\",k8s_node_name=~\"$k8s_node_name\",host_name=~\"$host_name\",service_instance_id=~\"$service_instance_id\",service_name=~\"$service_name\"}[$__rate_interval]))",
+          "expr": "sum(rate(otelcol_exporter_sent_spans_total{job=~\"$job\"}[$__rate_interval]))",
           "instant": false,
           "legendFormat": "Spans",
           "queryType": "range",
@@ -2005,7 +2005,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(otelcol_exporter_sent_log_records_total{deployment_environment_name=~\"$deployment_environment_name\",k8s_cluster_name=~\"$k8s_cluster_name\",k8s_node_name=~\"$k8s_node_name\",host_name=~\"$host_name\",service_instance_id=~\"$service_instance_id\",service_name=~\"$service_name\"}[$__rate_interval]))",
+          "expr": "sum(rate(otelcol_exporter_sent_log_records_total{job=~\"$job\"}[$__rate_interval]))",
           "instant": false,
           "legendFormat": "Logs",
           "queryType": "range",
@@ -2240,7 +2240,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(otelcol_exporter_sent_metric_points_total{deployment_environment_name=~\"$deployment_environment_name\",k8s_cluster_name=~\"$k8s_cluster_name\",k8s_node_name=~\"$k8s_node_name\",host_name=~\"$host_name\",service_instance_id=~\"$service_instance_id\",service_name=~\"$service_name\"}[$__rate_interval]))",
+          "expr": "sum(rate(otelcol_exporter_sent_metric_points_total{job=~\"$job\"}[$__rate_interval]))",
           "instant": false,
           "legendFormat": "Metrics",
           "queryType": "range",
@@ -2475,7 +2475,7 @@
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "otelcol_process_uptime_seconds_total{deployment_environment_name=~\"$deployment_environment_name\", k8s_cluster_name=~\"$k8s_cluster_name\", k8s_node_name=~\"$k8s_node_name\", host_name=~\"$host_name\", service_instance_id=~\"$service_instance_id\", service_name=~\"$service_name\"}",
+              "expr": "otelcol_process_uptime_seconds_total{job=~\"$job\"}",
               "format": "table",
               "instant": true,
               "legendFormat": "__auto",
@@ -2590,7 +2590,7 @@
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "rate(otelcol_process_cpu_seconds_total{deployment_environment_name=~\"$deployment_environment_name\",k8s_cluster_name=~\"$k8s_cluster_name\",k8s_node_name=~\"$k8s_node_name\",host_name=~\"$host_name\",service_instance_id=~\"$service_instance_id\",service_name=~\"$service_name\"}[$__rate_interval])",
+              "expr": "rate(otelcol_process_cpu_seconds_total{job=~\"$job\"}[$__rate_interval])",
               "instant": false,
               "legendFormat": "{{service_name}} {{service_instance_id}}",
               "queryType": "range",
@@ -2663,7 +2663,7 @@
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "otelcol_process_memory_rss_bytes{deployment_environment_name=~\"$deployment_environment_name\",k8s_cluster_name=~\"$k8s_cluster_name\",k8s_node_name=~\"$k8s_node_name\",host_name=~\"$host_name\",service_instance_id=~\"$service_instance_id\",service_name=~\"$service_name\"}",
+              "expr": "otelcol_process_memory_rss_bytes{job=~\"$job\"}",
               "instant": false,
               "legendFormat": "{{service_name}} {{service_instance_id}}",
               "queryType": "range",
@@ -2739,7 +2739,7 @@
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "otelcol_process_uptime_seconds_total{deployment_environment_name=~\"$deployment_environment_name\",k8s_cluster_name=~\"$k8s_cluster_name\",k8s_node_name=~\"$k8s_node_name\",host_name=~\"$host_name\",service_instance_id=~\"$service_instance_id\",service_name=~\"$service_name\"}",
+              "expr": "otelcol_process_uptime_seconds_total{job=~\"$job\"}",
               "instant": false,
               "legendFormat": "{{service_name}} {{service_instance_id}}",
               "queryType": "range",
@@ -2870,7 +2870,7 @@
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "sum(rate(otelcol_receiver_accepted_spans_total{deployment_environment_name=~\"$deployment_environment_name\",k8s_cluster_name=~\"$k8s_cluster_name\",k8s_node_name=~\"$k8s_node_name\",host_name=~\"$host_name\",service_instance_id=~\"$service_instance_id\",service_name=~\"$service_name\"}[$__rate_interval]))\n+\nsum(rate(otelcol_receiver_refused_spans_total{deployment_environment_name=~\"$deployment_environment_name\",k8s_cluster_name=~\"$k8s_cluster_name\",k8s_node_name=~\"$k8s_node_name\",host_name=~\"$host_name\",service_instance_id=~\"$service_instance_id\",service_name=~\"$service_name\"}[$__rate_interval]))",
+              "expr": "sum(rate(otelcol_receiver_accepted_spans_total{job=~\"$job\"}[$__rate_interval]))\n+\nsum(rate(otelcol_receiver_refused_spans_total{job=~\"$job\"}[$__rate_interval]))",
               "instant": false,
               "legendFormat": "Span Rate",
               "queryType": "range",
@@ -3075,7 +3075,7 @@
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "sum(rate(otelcol_receiver_accepted_log_records_total{deployment_environment_name=~\"$deployment_environment_name\",k8s_cluster_name=~\"$k8s_cluster_name\",k8s_node_name=~\"$k8s_node_name\",host_name=~\"$host_name\",service_instance_id=~\"$service_instance_id\",service_name=~\"$service_name\"}[$__rate_interval]))\n+\nsum(rate(otelcol_receiver_refused_log_records_total{deployment_environment_name=~\"$deployment_environment_name\",k8s_cluster_name=~\"$k8s_cluster_name\",k8s_node_name=~\"$k8s_node_name\",host_name=~\"$host_name\",service_instance_id=~\"$service_instance_id\",service_name=~\"$service_name\"}[$__rate_interval]))",
+              "expr": "sum(rate(otelcol_receiver_accepted_log_records_total{job=~\"$job\"}[$__rate_interval]))\n+\nsum(rate(otelcol_receiver_refused_log_records_total{job=~\"$job\"}[$__rate_interval]))",
               "instant": false,
               "legendFormat": "Logs",
               "queryType": "range",
@@ -3310,7 +3310,7 @@
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "sum(rate(otelcol_receiver_accepted_metric_points_total{deployment_environment_name=~\"$deployment_environment_name\",k8s_cluster_name=~\"$k8s_cluster_name\",k8s_node_name=~\"$k8s_node_name\",host_name=~\"$host_name\",service_instance_id=~\"$service_instance_id\",service_name=~\"$service_name\"}[$__rate_interval]))\n+\nsum(rate(otelcol_receiver_refused_metric_points_total{deployment_environment_name=~\"$deployment_environment_name\",k8s_cluster_name=~\"$k8s_cluster_name\",k8s_node_name=~\"$k8s_node_name\",host_name=~\"$host_name\",service_instance_id=~\"$service_instance_id\",service_name=~\"$service_name\"}[$__rate_interval]))",
+              "expr": "sum(rate(otelcol_receiver_accepted_metric_points_total{job=~\"$job\"}[$__rate_interval]))\n+\nsum(rate(otelcol_receiver_refused_metric_points_total{job=~\"$job\"}[$__rate_interval]))",
               "instant": false,
               "legendFormat": "Metrics",
               "queryType": "range",
@@ -4653,7 +4653,7 @@
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "sum(rate(otelcol_exporter_sent_spans_total{deployment_environment_name=~\"$deployment_environment_name\",k8s_cluster_name=~\"$k8s_cluster_name\",k8s_node_name=~\"$k8s_node_name\",host_name=~\"$host_name\",service_instance_id=~\"$service_instance_id\",service_name=~\"$service_name\"}[$__rate_interval]))",
+              "expr": "sum(rate(otelcol_exporter_sent_spans_total{job=~\"$job\"}[$__rate_interval]))",
               "instant": false,
               "legendFormat": "Spans",
               "queryType": "range",
@@ -4888,7 +4888,7 @@
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "sum(rate(otelcol_exporter_sent_log_records_total{deployment_environment_name=~\"$deployment_environment_name\",k8s_cluster_name=~\"$k8s_cluster_name\",k8s_node_name=~\"$k8s_node_name\",host_name=~\"$host_name\",service_instance_id=~\"$service_instance_id\",service_name=~\"$service_name\"}[$__rate_interval]))",
+              "expr": "sum(rate(otelcol_exporter_sent_log_records_total{job=~\"$job\"}[$__rate_interval]))",
               "instant": false,
               "legendFormat": "Logs",
               "queryType": "range",
@@ -5123,7 +5123,7 @@
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "sum(rate(otelcol_exporter_sent_metric_points_total{deployment_environment_name=~\"$deployment_environment_name\",k8s_cluster_name=~\"$k8s_cluster_name\",k8s_node_name=~\"$k8s_node_name\",host_name=~\"$host_name\",service_instance_id=~\"$service_instance_id\",service_name=~\"$service_name\"}[$__rate_interval]))",
+              "expr": "sum(rate(otelcol_exporter_sent_metric_points_total{job=~\"$job\"}[$__rate_interval]))",
               "instant": false,
               "legendFormat": "Metrics",
               "queryType": "range",
@@ -5454,171 +5454,34 @@
     "list": [
       {
         "current": {
+          "selected": false,
           "text": "Prometheus",
-          "value": "webstore-metrics"
+          "value": "Prometheus"
         },
-        "description": "OpenTelemetry metrics. \nSend metrics using the Prometheus OTLP endpoint activating `keep_identifying_resource_attributes` and resource attribute promotion (aka `promote_resource_attributes`) including `service.name`, service.namespace`, `service.instance.id`, and `deployment.environment.name`",
+        "hide": 0,
         "label": "Data Source",
         "name": "datasource",
-        "options": [],
         "query": "prometheus",
-        "refresh": 1,
-        "regex": "(?!grafanacloud-usage|grafanacloud-ml-metrics).+",
         "type": "datasource"
       },
       {
-        "allValue": ".*",
         "current": {
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+          "selected": false,
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "label_values(otelcol_process_uptime_seconds_total{deployment_environment_name=~\"$deployment_environment_name\"},k8s_cluster_name)",
-        "description": "Resource attribute `k8s.cluster.name`",
-        "includeAll": true,
-        "label": "Kubernetes cluster",
-        "multi": true,
-        "name": "k8s_cluster_name",
-        "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(otelcol_process_uptime_seconds_total{deployment_environment_name=~\"$deployment_environment_name\"},k8s_cluster_name)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "staticOptions": [
-          {
-            "text": "<<not defined>>",
-            "value": "<<not defined>>"
-          }
-        ],
-        "staticOptionsOrder": "after",
-        "type": "query"
-      },
-      {
-        "allValue": ".*",
-        "current": {
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${datasource}"
-        },
-        "definition": "label_values(otelcol_process_cpu_seconds_total{k8s_cluster_name=~\"$k8s_cluster_name\"},k8s_node_name)",
-        "description": "`k8s.node.name`",
-        "includeAll": true,
-        "label": "K8s node",
-        "multi": true,
-        "name": "k8s_node_name",
-        "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(otelcol_process_cpu_seconds_total{k8s_cluster_name=~\"$k8s_cluster_name\"},k8s_node_name)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "staticOptions": [
-          {
-            "text": "<<not defined>>",
-            "value": "<<not defined>>"
-          }
-        ],
-        "staticOptionsOrder": "after",
-        "type": "query"
-      },
-      {
-        "allValue": ".*",
-        "current": {
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${datasource}"
-        },
-        "definition": "label_values(otelcol_process_uptime_seconds_total,host_name)",
-        "description": "`host.name`",
-        "includeAll": true,
-        "label": "Host",
-        "name": "host_name",
-        "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(otelcol_process_uptime_seconds_total,host_name)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "staticOptions": [
-          {
-            "text": "<<not defined>>",
-            "value": "<<not defined>>"
-          }
-        ],
-        "type": "query"
-      },
-      {
-        "allValue": ".*",
-        "current": {
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${datasource}"
-        },
-        "definition": "label_values(otelcol_process_uptime_seconds_total{deployment_environment_name=~\"$deployment_environment_name\", k8s_cluster_name=~\"$k8s_cluster_name\", k8s_node_name=~\"$k8s_node_name\", host_name=~\"$host_name\"},service_instance_id)",
-        "description": "`service.instance.id`",
-        "includeAll": true,
-        "label": "Instance",
-        "name": "service_instance_id",
-        "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(otelcol_process_uptime_seconds_total{deployment_environment_name=~\"$deployment_environment_name\", k8s_cluster_name=~\"$k8s_cluster_name\", k8s_node_name=~\"$k8s_node_name\", host_name=~\"$host_name\"},service_instance_id)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "type": "query"
-      },
-      {
-        "allValue": ".*",
-        "current": {
-          "text": "otelcol-contrib",
-          "value": "otelcol-contrib"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${datasource}"
-        },
-        "definition": "label_values(otelcol_process_uptime_seconds_total{deployment_environment_name=~\"$deployment_environment_name\", k8s_cluster_name=~\"$k8s_cluster_name\", k8s_node_name=~\"$k8s_node_name\", host_name=~\"$host_name\"},service_name)",
-        "description": "`service.name`",
-        "includeAll": true,
-        "label": "Service",
-        "name": "service_name",
-        "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(otelcol_process_uptime_seconds_total{deployment_environment_name=~\"$deployment_environment_name\", k8s_cluster_name=~\"$k8s_cluster_name\", k8s_node_name=~\"$k8s_node_name\", host_name=~\"$host_name\"},service_name)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
+        "definition": "label_values(otelcol_process_uptime_seconds_total, job)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Job",
+        "name": "job",
+        "query": "label_values(otelcol_process_uptime_seconds_total, job)",
+        "refresh": 2,
+        "sort": 1,
         "type": "query"
       }
     ]
