@@ -99,7 +99,7 @@
           "datasource": {
             "uid": "${datasource}"
           },
-          "expr": "sum(go_info{namespace=\"$namespace\",pod=~\".*-controller-.*\"})",
+          "expr": "sum(go_info{instance=~\".*-controller-.*\"})",
           "interval": "",
           "legendFormat": "pods",
           "refId": "A"
@@ -165,7 +165,7 @@
           "datasource": {
             "uid": "${datasource}"
           },
-          "expr": "max(workqueue_longest_running_processor_seconds{namespace=\"$namespace\",pod=~\".*-controller-.*\"})",
+          "expr": "max(workqueue_longest_running_processor_seconds{instance=~\".*-controller-.*\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "seconds",
@@ -230,7 +230,7 @@
           "datasource": {
             "uid": "${datasource}"
           },
-          "expr": "sum(go_memstats_alloc_bytes{namespace=\"$namespace\",pod=~\".*-controller-.*\"})",
+          "expr": "sum(go_memstats_alloc_bytes{instance=~\".*-controller-.*\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -295,7 +295,7 @@
           "datasource": {
             "uid": "${datasource}"
           },
-          "expr": "sum(rate(rest_client_requests_total{namespace=\"$namespace\",pod=~\".*-controller-.*\"}[$__rate_interval]))",
+          "expr": "sum(rate(rest_client_requests_total{instance=~\".*-controller-.*\"}[$__rate_interval]))",
           "interval": "",
           "legendFormat": "requests",
           "refId": "A"
@@ -390,7 +390,7 @@
           "datasource": {
             "uid": "${datasource}"
           },
-          "expr": "sum(rate(rest_client_requests_total{namespace=\"$namespace\"}[$__rate_interval]))",
+          "expr": "sum(rate(rest_client_requests_total{instance=~\".*-controller-.*\"}[$__rate_interval]))",
           "hide": false,
           "interval": "",
           "legendFormat": "total",
@@ -400,7 +400,7 @@
           "datasource": {
             "uid": "${datasource}"
           },
-          "expr": "sum(rate(rest_client_requests_total{namespace=\"$namespace\",code!~\"2..\"}[$__rate_interval]))",
+          "expr": "sum(rate(rest_client_requests_total{instance=~\".*-controller-.*\",code!~\"2..\"}[$__rate_interval]))",
           "hide": false,
           "interval": "",
           "legendFormat": "errors",
@@ -519,7 +519,7 @@
           "datasource": {
             "uid": "${datasource}"
           },
-          "expr": "rate(process_cpu_seconds_total{namespace=\"$namespace\",pod=~\".*-controller-.*\"}[$__rate_interval])",
+          "expr": "rate(process_cpu_seconds_total{instance=~\".*-controller-.*\"}[$__rate_interval])",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -1683,18 +1683,18 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "workqueue_work_duration_seconds_count",
+        "definition": "label_values(gotk_reconcile_duration_seconds_count, namespace)",
         "hide": 0,
         "includeAll": false,
         "multi": false,
         "name": "namespace",
         "options": [],
         "query": {
-          "query": "workqueue_work_duration_seconds_count",
+          "query": "label_values(gotk_reconcile_duration_seconds_count, namespace)",
           "refId": "Prometheus-namespace-Variable-Query"
         },
         "refresh": 2,
-        "regex": "/.*namespace=\"([^\"]*).*/",
+        "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
