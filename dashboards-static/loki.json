@@ -77,7 +77,7 @@
       "options": { "colorMode": "value", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto" },
       "targets": [
         {
-          "expr": "loki_inflight_requests{job=\"$job\"}",
+          "expr": "sum(loki_inflight_requests{job=\"$job\"})",
           "legendFormat": "inflight",
           "refId": "A"
         }
@@ -465,7 +465,7 @@
     },
     {
       "datasource": { "type": "prometheus", "uid": "${datasource}" },
-      "description": "Log samples discarded by reason",
+      "description": "Log samples discarded by reason — shows data when rate limiting or per-tenant limits are hit",
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
@@ -509,7 +509,7 @@
         },
         "overrides": []
       },
-      "gridPos": { "h": 8, "w": 4, "x": 0, "y": 40 },
+      "gridPos": { "h": 8, "w": 4, "x": 0, "y": 48 },
       "id": 31,
       "options": { "minVizHeight": 75, "minVizWidth": 75, "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "showThresholdLabels": false, "showThresholdMarkers": true, "sizing": "auto" },
       "targets": [
@@ -533,7 +533,7 @@
         },
         "overrides": []
       },
-      "gridPos": { "h": 8, "w": 10, "x": 4, "y": 40 },
+      "gridPos": { "h": 8, "w": 10, "x": 4, "y": 48 },
       "id": 32,
       "options": { "legend": { "calcs": ["mean", "max"], "displayMode": "table", "placement": "bottom" }, "tooltip": { "mode": "multi", "sort": "desc" } },
       "targets": [
@@ -557,7 +557,7 @@
         },
         "overrides": []
       },
-      "gridPos": { "h": 8, "w": 10, "x": 14, "y": 40 },
+      "gridPos": { "h": 8, "w": 10, "x": 14, "y": 48 },
       "id": 33,
       "options": { "legend": { "calcs": ["mean", "max"], "displayMode": "table", "placement": "bottom" }, "tooltip": { "mode": "multi", "sort": "desc" } },
       "targets": [
@@ -586,7 +586,7 @@
         },
         "overrides": []
       },
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 48 },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 56 },
       "id": 34,
       "options": { "legend": { "calcs": ["mean", "max"], "displayMode": "table", "placement": "bottom" }, "tooltip": { "mode": "multi", "sort": "desc" } },
       "targets": [
@@ -610,7 +610,7 @@
         },
         "overrides": []
       },
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 48 },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 56 },
       "id": 35,
       "options": { "legend": { "calcs": ["mean"], "displayMode": "table", "placement": "bottom" }, "tooltip": { "mode": "multi", "sort": "desc" } },
       "targets": [
@@ -703,7 +703,7 @@
         },
         "overrides": []
       },
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 57 },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 73 },
       "id": 41,
       "options": { "legend": { "calcs": ["mean", "lastNotNull"], "displayMode": "table", "placement": "bottom" }, "tooltip": { "mode": "multi", "sort": "desc" } },
       "targets": [
@@ -727,7 +727,7 @@
         },
         "overrides": []
       },
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 57 },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 73 },
       "id": 42,
       "options": { "legend": { "calcs": ["mean", "max"], "displayMode": "table", "placement": "bottom" }, "tooltip": { "mode": "multi", "sort": "desc" } },
       "targets": [
@@ -747,7 +747,7 @@
     },
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 65 },
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 81 },
       "id": 50,
       "panels": [],
       "title": "Retention & Compaction",
@@ -765,7 +765,7 @@
         },
         "overrides": []
       },
-      "gridPos": { "h": 4, "w": 12, "x": 0, "y": 66 },
+      "gridPos": { "h": 4, "w": 12, "x": 0, "y": 82 },
       "id": 51,
       "options": { "colorMode": "value", "graphMode": "none", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto" },
       "targets": [
@@ -775,7 +775,7 @@
           "refId": "A"
         },
         {
-          "expr": "loki_compactor_apply_retention_last_successful_run_timestamp_seconds{job=\"$job\"} * 1000",
+          "expr": "loki_compactor_apply_retention_last_successful_run_timestamp_seconds{job=\"$job\"} * 1000 > 0",
           "legendFormat": "Last Retention",
           "refId": "B"
         }
@@ -794,7 +794,7 @@
         },
         "overrides": []
       },
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 66 },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 82 },
       "id": 52,
       "options": { "legend": { "calcs": ["mean"], "displayMode": "table", "placement": "bottom" }, "tooltip": { "mode": "multi", "sort": "desc" } },
       "targets": [
