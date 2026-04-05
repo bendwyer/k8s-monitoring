@@ -5428,19 +5428,6 @@
       ],
       "title": "Exporters",
       "type": "row"
-    },
-    {
-      "collapsed": true,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 18
-      },
-      "id": 46,
-      "panels": [],
-      "title": "Logs",
-      "type": "row"
     }
   ],
   "preload": false,
