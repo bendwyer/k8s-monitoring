@@ -15,7 +15,7 @@
       }
     ]
   },
-  "description": "Statistics of the restic based k8up operator application. Official dashboard extracted from https://github.com/k8up-io/k8up/blob/master/charts/k8up/templates/grafana-dashboard.yaml as or commit f0f40bbbb85b74ab522dd2e383569f1e0591ec3f",
+  "description": "Statistics of the restic based k8up operator application, including backup health overview and detailed pushgateway metrics.",
   "editable": false,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
@@ -191,22 +191,27 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "red",
                 "value": null
               },
               {
-                "color": "red",
-                "value": 80
+                "color": "yellow",
+                "value": 0.9
+              },
+              {
+                "color": "green",
+                "value": 0.95
               }
             ]
-          }
+          },
+          "unit": "percentunit"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 0,
+        "x": 12,
         "y": 9
       },
       "id": 13,
@@ -233,25 +238,37 @@
             "uid": "${datasource}"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "sum by(exported_namespace) (k8up_jobs_successful_counter_total)",
+          "editorMode": "code",
+          "expr": "sum by(exported_namespace) (k8up_jobs_successful_counter_total) / sum by(exported_namespace) (k8up_jobs_total)",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
-          "legendFormat": "__auto",
+          "legendFormat": "{{exported_namespace}}",
           "range": true,
           "refId": "A",
           "useBackend": false
         }
       ],
-      "title": "Successful Jobs",
+      "title": "Success Rate",
       "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
+      "id": 18,
+      "panels": [],
+      "title": "Backup Health",
+      "type": "row"
     },
     {
       "datasource": {
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -266,23 +283,28 @@
                 "value": null
               },
               {
+                "color": "yellow",
+                "value": 86400
+              },
+              {
                 "color": "red",
-                "value": 80
+                "value": 93600
               }
             ]
-          }
+          },
+          "unit": "s"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 9
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 18
       },
-      "id": 14,
+      "id": 15,
       "options": {
-        "colorMode": "value",
+        "colorMode": "background",
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
@@ -303,18 +325,218 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "sum by(exported_namespace) (k8up_jobs_failed_counter_total)",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "legendFormat": "__auto",
+          "editorMode": "code",
+          "expr": "time() - push_time_seconds{job=\"restic_backup\", instance=~\"$instance\"}",
+          "legendFormat": "{{instance}}",
           "range": true,
-          "refId": "A",
-          "useBackend": false
+          "refId": "A"
         }
       ],
-      "title": "Failed Jobs",
+      "title": "Backup Freshness",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 18
+      },
+      "id": 16,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "builder",
+          "expr": "k8up_backup_restic_last_errors{instance=~\"$instance\"}",
+          "legendFormat": "{{instance}} - {{pvc}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Last Errors",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 7
+              },
+              {
+                "color": "green",
+                "value": 14
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 18
+      },
+      "id": 17,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "builder",
+          "expr": "k8up_backup_restic_available_snapshots{instance=~\"$instance\"}",
+          "legendFormat": "{{instance}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Available Snapshots",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "No failures",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 86400
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 18
+      },
+      "id": 19,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "time() - push_failure_time_seconds{job=\"restic_backup\", instance=~\"$instance\"}",
+          "legendFormat": "{{instance}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Push Gateway Health",
       "type": "stat"
     },
     {
@@ -323,11 +545,124 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 17
+        "y": 22
+      },
+      "id": 20,
+      "panels": [],
+      "title": "Backup Performance",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 50,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1800
+              },
+              {
+                "color": "red",
+                "value": 3600
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
+      "id": 21,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.2.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "(kube_job_status_completion_time{job_name=~\"backup-schedule.*\"} - kube_job_status_start_time{job_name=~\"backup-schedule.*\"}) > 0",
+          "legendFormat": "{{namespace}} / {{job_name}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Backup Duration",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 31
       },
       "id": 9,
       "panels": [],
-      "title": "Pushgateway Metrics",
+      "title": "Backup Details",
       "type": "row"
     },
     {
@@ -369,7 +704,7 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "line+area"
             }
           },
           "mappings": [],
@@ -382,7 +717,7 @@
               },
               {
                 "color": "red",
-                "value": 80
+                "value": 1
               }
             ]
           }
@@ -393,7 +728,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 18
+        "y": 32
       },
       "id": 2,
       "options": {
@@ -419,7 +754,7 @@
           "exemplar": false,
           "expr": "k8up_backup_restic_last_errors{instance=~\"$instance\"}",
           "instant": false,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{instance}} - {{pvc}}",
           "range": true,
           "refId": "A"
         }
@@ -490,7 +825,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 18
+        "y": 32
       },
       "id": 1,
       "options": {
@@ -586,7 +921,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 26
+        "y": 40
       },
       "id": 3,
       "options": {
@@ -609,7 +944,7 @@
           },
           "editorMode": "builder",
           "expr": "k8up_backup_restic_unmodified_files_during_backup{instance=~\"$instance\"}",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{instance}} - {{pvc}}",
           "range": true,
           "refId": "A"
         }
@@ -681,7 +1016,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 26
+        "y": 40
       },
       "id": 7,
       "options": {
@@ -704,7 +1039,7 @@
           },
           "editorMode": "builder",
           "expr": "k8up_backup_restic_unmodified_directories_during_backup",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{instance}} - {{pvc}}",
           "range": true,
           "refId": "A"
         }
@@ -776,7 +1111,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 34
+        "y": 48
       },
       "id": 5,
       "options": {
@@ -799,7 +1134,7 @@
           },
           "editorMode": "builder",
           "expr": "k8up_backup_restic_changed_files_during_backup{instance=~\"$instance\"}",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{instance}} - {{pvc}}",
           "range": true,
           "refId": "A"
         }
@@ -871,7 +1206,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 34
+        "y": 48
       },
       "id": 4,
       "options": {
@@ -894,7 +1229,7 @@
           },
           "editorMode": "builder",
           "expr": "k8up_backup_restic_changed_directories_during_backup{instance=~\"$instance\"}",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{instance}} - {{pvc}}",
           "range": true,
           "refId": "A"
         }
@@ -966,7 +1301,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 42
+        "y": 56
       },
       "id": 8,
       "options": {
@@ -989,7 +1324,7 @@
           },
           "editorMode": "builder",
           "expr": "k8up_backup_restic_new_files_during_backup{instance=~\"$instance\"}",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{instance}} - {{pvc}}",
           "range": true,
           "refId": "A"
         }
@@ -1061,7 +1396,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 42
+        "y": 56
       },
       "id": 6,
       "options": {
@@ -1084,7 +1419,7 @@
           },
           "editorMode": "builder",
           "expr": "k8up_backup_restic_new_directories_during_backup{instance=~\"$instance\"}",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{instance}} - {{pvc}}",
           "range": true,
           "refId": "A"
         }
@@ -1093,7 +1428,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "",
+  "refresh": "5m",
   "schemaVersion": 38,
   "tags": [
     "k8up"
