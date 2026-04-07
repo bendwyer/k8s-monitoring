@@ -326,8 +326,8 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "time() - push_time_seconds{job=\"restic_backup\", instance=~\"$instance\"}",
-          "legendFormat": "{{instance}}",
+          "expr": "time() - push_time_seconds{job=\"restic_backup\", instance=~\"$instance\", cluster=~\"$cluster\"}",
+          "legendFormat": "{{instance}} / {{cluster}}",
           "range": true,
           "refId": "A"
         }
@@ -392,8 +392,8 @@
             "uid": "${datasource}"
           },
           "editorMode": "builder",
-          "expr": "k8up_backup_restic_last_errors{instance=~\"$instance\"}",
-          "legendFormat": "{{instance}} - {{pvc}}",
+          "expr": "k8up_backup_restic_last_errors{instance=~\"$instance\", cluster=~\"$cluster\"}",
+          "legendFormat": "{{instance}} / {{cluster}}",
           "range": true,
           "refId": "A"
         }
@@ -462,8 +462,8 @@
             "uid": "${datasource}"
           },
           "editorMode": "builder",
-          "expr": "k8up_backup_restic_available_snapshots{instance=~\"$instance\"}",
-          "legendFormat": "{{instance}}",
+          "expr": "k8up_backup_restic_available_snapshots{instance=~\"$instance\", cluster=~\"$cluster\"}",
+          "legendFormat": "{{instance}} / {{cluster}}",
           "range": true,
           "refId": "A"
         }
@@ -530,8 +530,8 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "time() - push_failure_time_seconds{job=\"restic_backup\", instance=~\"$instance\"}",
-          "legendFormat": "{{instance}}",
+          "expr": "time() - push_failure_time_seconds{job=\"restic_backup\", instance=~\"$instance\", cluster=~\"$cluster\"}",
+          "legendFormat": "{{instance}} / {{cluster}}",
           "range": true,
           "refId": "A"
         }
@@ -752,9 +752,9 @@
           },
           "editorMode": "builder",
           "exemplar": false,
-          "expr": "k8up_backup_restic_last_errors{instance=~\"$instance\"}",
+          "expr": "k8up_backup_restic_last_errors{instance=~\"$instance\", cluster=~\"$cluster\"}",
           "instant": false,
-          "legendFormat": "{{instance}} - {{pvc}}",
+          "legendFormat": "{{instance}} / {{cluster}}",
           "range": true,
           "refId": "A"
         }
@@ -848,8 +848,8 @@
             "uid": "${datasource}"
           },
           "editorMode": "builder",
-          "expr": "k8up_backup_restic_available_snapshots{instance=~\"$instance\"}",
-          "legendFormat": "{{instance}}",
+          "expr": "k8up_backup_restic_available_snapshots{instance=~\"$instance\", cluster=~\"$cluster\"}",
+          "legendFormat": "{{instance}} / {{cluster}}",
           "range": true,
           "refId": "A"
         }
@@ -943,8 +943,8 @@
             "uid": "${datasource}"
           },
           "editorMode": "builder",
-          "expr": "k8up_backup_restic_unmodified_files_during_backup{instance=~\"$instance\"}",
-          "legendFormat": "{{instance}} - {{pvc}}",
+          "expr": "k8up_backup_restic_unmodified_files_during_backup{instance=~\"$instance\", cluster=~\"$cluster\"}",
+          "legendFormat": "{{instance}} / {{cluster}}",
           "range": true,
           "refId": "A"
         }
@@ -1038,8 +1038,8 @@
             "uid": "${datasource}"
           },
           "editorMode": "builder",
-          "expr": "k8up_backup_restic_unmodified_directories_during_backup",
-          "legendFormat": "{{instance}} - {{pvc}}",
+          "expr": "k8up_backup_restic_unmodified_directories_during_backup{instance=~\"$instance\", cluster=~\"$cluster\"}",
+          "legendFormat": "{{instance}} / {{cluster}}",
           "range": true,
           "refId": "A"
         }
@@ -1133,8 +1133,8 @@
             "uid": "${datasource}"
           },
           "editorMode": "builder",
-          "expr": "k8up_backup_restic_changed_files_during_backup{instance=~\"$instance\"}",
-          "legendFormat": "{{instance}} - {{pvc}}",
+          "expr": "k8up_backup_restic_changed_files_during_backup{instance=~\"$instance\", cluster=~\"$cluster\"}",
+          "legendFormat": "{{instance}} / {{cluster}}",
           "range": true,
           "refId": "A"
         }
@@ -1228,8 +1228,8 @@
             "uid": "${datasource}"
           },
           "editorMode": "builder",
-          "expr": "k8up_backup_restic_changed_directories_during_backup{instance=~\"$instance\"}",
-          "legendFormat": "{{instance}} - {{pvc}}",
+          "expr": "k8up_backup_restic_changed_directories_during_backup{instance=~\"$instance\", cluster=~\"$cluster\"}",
+          "legendFormat": "{{instance}} / {{cluster}}",
           "range": true,
           "refId": "A"
         }
@@ -1323,8 +1323,8 @@
             "uid": "${datasource}"
           },
           "editorMode": "builder",
-          "expr": "k8up_backup_restic_new_files_during_backup{instance=~\"$instance\"}",
-          "legendFormat": "{{instance}} - {{pvc}}",
+          "expr": "k8up_backup_restic_new_files_during_backup{instance=~\"$instance\", cluster=~\"$cluster\"}",
+          "legendFormat": "{{instance}} / {{cluster}}",
           "range": true,
           "refId": "A"
         }
@@ -1418,8 +1418,8 @@
             "uid": "${datasource}"
           },
           "editorMode": "builder",
-          "expr": "k8up_backup_restic_new_directories_during_backup{instance=~\"$instance\"}",
-          "legendFormat": "{{instance}} - {{pvc}}",
+          "expr": "k8up_backup_restic_new_directories_during_backup{instance=~\"$instance\", cluster=~\"$cluster\"}",
+          "legendFormat": "{{instance}} / {{cluster}}",
           "range": true,
           "refId": "A"
         }
@@ -1468,6 +1468,29 @@
         "options": [],
         "query": {
           "query": "label_values(k8up_backup_restic_available_snapshots,instance)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "definition": "label_values(k8up_backup_restic_available_snapshots{instance=~\"$instance\", cluster=~\"$cluster\"},cluster)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Cluster",
+        "multi": true,
+        "name": "cluster",
+        "options": [],
+        "query": {
+          "query": "label_values(k8up_backup_restic_available_snapshots{instance=~\"$instance\", cluster=~\"$cluster\"},cluster)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
