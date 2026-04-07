@@ -618,8 +618,8 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 24,
-        "x": 0,
+        "w": 18,
+        "x": 6,
         "y": 23
       },
       "id": 21,
@@ -651,6 +651,74 @@
       ],
       "title": "Backup Duration",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "Idle",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 0,
+        "y": 23
+      },
+      "id": 22,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (namespace) (kube_job_status_active{job_name=~\"backup-schedule.*\"})",
+          "legendFormat": "{{namespace}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Active Backups",
+      "type": "stat"
     },
     {
       "collapsed": false,
@@ -1482,7 +1550,7 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "label_values(k8up_backup_restic_available_snapshots{instance=~\"$instance\", cluster=~\"$cluster\"},cluster)",
+        "definition": "label_values(k8up_backup_restic_available_snapshots{instance=~\"$instance\"},cluster)",
         "hide": 0,
         "includeAll": true,
         "label": "Cluster",
@@ -1490,7 +1558,7 @@
         "name": "cluster",
         "options": [],
         "query": {
-          "query": "label_values(k8up_backup_restic_available_snapshots{instance=~\"$instance\", cluster=~\"$cluster\"},cluster)",
+          "query": "label_values(k8up_backup_restic_available_snapshots{instance=~\"$instance\"},cluster)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
