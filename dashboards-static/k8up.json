@@ -530,7 +530,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "time() - push_failure_time_seconds{job=\"restic_backup\", instance=~\"$instance\", cluster=~\"$cluster\"}",
+          "expr": "time() - (push_failure_time_seconds{job=\"restic_backup\", instance=~\"$instance\", cluster=~\"$cluster\"} > 0)",
           "legendFormat": "{{instance}} / {{cluster}}",
           "range": true,
           "refId": "A"
