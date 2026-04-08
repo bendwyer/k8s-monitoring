@@ -24,7 +24,7 @@
           "type": "datasource",
           "uid": "grafana"
         },
-        "enable": false,
+        "enable": true,
         "hide": false,
         "iconColor": "red",
         "name": "flux events",
@@ -2121,7 +2121,7 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "flux_operator_info",
+        "definition": "label_values(flux_operator_info, namespace)",
         "includeAll": false,
         "name": "namespace",
         "options": [
@@ -2132,11 +2132,11 @@
           }
         ],
         "query": {
-          "query": "flux_operator_info",
-          "refId": "Prometheus-namespace-Variable-Query"
+          "query": "label_values(flux_operator_info, namespace)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 60,
-        "regex": "/.*namespace=\"([^\"]*).*/",
+        "regex": "",
         "type": "query"
       }
     ]
