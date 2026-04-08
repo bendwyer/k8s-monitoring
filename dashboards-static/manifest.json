@@ -1,10 +1,11 @@
 {
   "flux": {
-    "version": "1.0.6",
+    "version": "1.1.0",
     "files": [
       "flux-cluster.json",
       "flux-control-plane.json",
-      "flux-logs.json"
+      "flux-logs.json",
+      "flux-performance.json"
     ]
   },
   "longhorn": {
