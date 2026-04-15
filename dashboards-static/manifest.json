@@ -31,5 +31,11 @@
     "files": [
       "loki.json"
     ]
+  },
+  "claude-code": {
+    "version": "1.0.0",
+    "files": [
+      "claude-code.json"
+    ]
   }
 }
