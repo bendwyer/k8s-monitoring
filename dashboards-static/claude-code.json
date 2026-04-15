@@ -62,7 +62,7 @@
       "options": { "colorMode": "value", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto" },
       "title": "Burn Rate ($/hr)",
       "type": "stat",
-      "targets": [{ "datasource": { "type": "prometheus", "uid": "${datasource}" }, "expr": "sum(rate(claude_code_cost_usage_USD_total[1h])) * 3600", "refId": "A" }]
+      "targets": [{ "datasource": { "type": "prometheus", "uid": "${datasource}" }, "expr": "sum(rate(claude_code_cost_usage_USD_total[6h])) * 3600", "refId": "A" }]
     },
     {
       "datasource": { "type": "prometheus", "uid": "${datasource}" },
@@ -79,7 +79,7 @@
       "options": { "colorMode": "value", "graphMode": "none", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto" },
       "title": "Sessions (24h)",
       "type": "stat",
-      "targets": [{ "datasource": { "type": "prometheus", "uid": "${datasource}" }, "expr": "sum(increase(claude_code_session_count_total[24h]))", "refId": "A" }]
+      "targets": [{ "datasource": { "type": "prometheus", "uid": "${datasource}" }, "expr": "count(count by (session_id)(claude_code_session_count_total))", "refId": "A" }]
     },
     {
       "datasource": { "type": "prometheus", "uid": "${datasource}" },
@@ -257,7 +257,7 @@
       "options": { "colorMode": "value", "graphMode": "none", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "auto" },
       "title": "Avg Cost / Session",
       "type": "stat",
-      "targets": [{ "datasource": { "type": "prometheus", "uid": "${datasource}" }, "expr": "sum(increase(claude_code_cost_usage_USD_total[24h])) / sum(increase(claude_code_session_count_total[24h]))", "refId": "A" }]
+      "targets": [{ "datasource": { "type": "prometheus", "uid": "${datasource}" }, "expr": "sum(increase(claude_code_cost_usage_USD_total[24h])) / count(count by (session_id)(claude_code_cost_usage_USD_total))", "refId": "A" }]
     },
     {
       "collapsed": false,
@@ -282,7 +282,7 @@
       "options": { "legend": { "calcs": [], "displayMode": "list", "placement": "bottom" }, "tooltip": { "mode": "single", "sort": "none" } },
       "title": "Sessions Over Time",
       "type": "timeseries",
-      "targets": [{ "datasource": { "type": "prometheus", "uid": "${datasource}" }, "expr": "sum(increase(claude_code_session_count_total[$__rate_interval]))", "legendFormat": "Sessions", "refId": "A" }]
+      "targets": [{ "datasource": { "type": "prometheus", "uid": "${datasource}" }, "expr": "count(count by (session_id)(changes(claude_code_session_count_total[$__rate_interval]) > 0))", "legendFormat": "Sessions", "refId": "A" }]
     },
     {
       "datasource": { "type": "prometheus", "uid": "${datasource}" },
@@ -383,7 +383,7 @@
       "title": "Daily Forecast",
       "description": "Projected daily cost based on recent 1h rate.",
       "type": "stat",
-      "targets": [{ "datasource": { "type": "prometheus", "uid": "${datasource}" }, "expr": "sum(rate(claude_code_cost_usage_USD_total[1h])) * 86400", "refId": "A" }]
+      "targets": [{ "datasource": { "type": "prometheus", "uid": "${datasource}" }, "expr": "sum(rate(claude_code_cost_usage_USD_total[6h])) * 86400", "refId": "A" }]
     },
     {
       "datasource": { "type": "prometheus", "uid": "${datasource}" },
@@ -402,7 +402,7 @@
       "title": "Monthly Forecast",
       "description": "Projected monthly cost based on recent 1h rate.",
       "type": "stat",
-      "targets": [{ "datasource": { "type": "prometheus", "uid": "${datasource}" }, "expr": "sum(rate(claude_code_cost_usage_USD_total[1h])) * 86400 * 30", "refId": "A" }]
+      "targets": [{ "datasource": { "type": "prometheus", "uid": "${datasource}" }, "expr": "sum(rate(claude_code_cost_usage_USD_total[6h])) * 86400 * 30", "refId": "A" }]
     },
     {
       "datasource": { "type": "prometheus", "uid": "${datasource}" },
@@ -425,9 +425,9 @@
       "description": "Hourly cost rate with +/- 2 standard deviation bands.",
       "type": "timeseries",
       "targets": [
-        { "datasource": { "type": "prometheus", "uid": "${datasource}" }, "expr": "sum(rate(claude_code_cost_usage_USD_total[1h])) * 3600", "legendFormat": "Cost/hr", "refId": "A" },
-        { "datasource": { "type": "prometheus", "uid": "${datasource}" }, "expr": "sum(rate(claude_code_cost_usage_USD_total[1h])) * 3600 + 2 * stddev(rate(claude_code_cost_usage_USD_total[1h])) * 3600", "legendFormat": "Upper Band", "refId": "B" },
-        { "datasource": { "type": "prometheus", "uid": "${datasource}" }, "expr": "sum(rate(claude_code_cost_usage_USD_total[1h])) * 3600 - 2 * stddev(rate(claude_code_cost_usage_USD_total[1h])) * 3600", "legendFormat": "Lower Band", "refId": "C" }
+        { "datasource": { "type": "prometheus", "uid": "${datasource}" }, "expr": "sum(rate(claude_code_cost_usage_USD_total[6h])) * 3600", "legendFormat": "Cost/hr", "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "${datasource}" }, "expr": "sum(rate(claude_code_cost_usage_USD_total[6h])) * 3600 + 2 * stddev(rate(claude_code_cost_usage_USD_total[6h])) * 3600", "legendFormat": "Upper Band", "refId": "B" },
+        { "datasource": { "type": "prometheus", "uid": "${datasource}" }, "expr": "sum(rate(claude_code_cost_usage_USD_total[6h])) * 3600 - 2 * stddev(rate(claude_code_cost_usage_USD_total[6h])) * 3600", "legendFormat": "Lower Band", "refId": "C" }
       ]
     },
     {
