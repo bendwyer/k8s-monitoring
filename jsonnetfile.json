@@ -35,7 +35,7 @@
           "subdir": "doc/alertmanager-mixin"
         }
       },
-      "version": "v0.32.0"
+      "version": "v0.32.1"
     },
     {
       "source": {
