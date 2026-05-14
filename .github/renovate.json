@@ -13,7 +13,35 @@
     "commands": ["jb update"],
     "fileFilters": ["jsonnetfile.json", "jsonnetfile.lock.json"]
   },
+  "customDatasources": {
+    "jsonnet-libs-subdir": {
+      "defaultRegistryUrlTemplate": "https://api.github.com/repos/grafana/jsonnet-libs/commits?path={{packageName}}&per_page=1",
+      "format": "json",
+      "transformTemplates": [
+        "{ \"releases\": [{ \"version\": $[0].sha, \"releaseTimestamp\": $[0].commit.committer.date }] }"
+      ]
+    }
+  },
+  "customManagers": [
+    {
+      "description": "Track per-subdir commits for jsonnet-libs monorepo mixins (no upstream semver tags).",
+      "customType": "regex",
+      "managerFilePatterns": ["/^jsonnetfile\\.json$/"],
+      "matchStrings": [
+        "\"remote\":\\s*\"https://github\\.com/grafana/jsonnet-libs\\.git\"[\\s\\S]*?\"subdir\":\\s*\"(?<depName>[^\"]+)\"[\\s\\S]*?\"version\":\\s*\"(?<currentValue>[a-f0-9]{40})\""
+      ],
+      "datasourceTemplate": "custom.jsonnet-libs-subdir",
+      "packageNameTemplate": "{{depName}}",
+      "versioningTemplate": "git"
+    }
+  ],
   "packageRules": [
+    {
+      "description": "Disable the default jsonnet-bundler manager for jsonnet-libs entries; customManager above handles them via per-subdir commit tracking.",
+      "matchManagers": ["jsonnet-bundler"],
+      "matchPackageNames": ["https://github.com/grafana/jsonnet-libs.git"],
+      "enabled": false
+    },
     {
       "description": "Automerge patch+minor for >=1.x",
       "matchCurrentVersion": "/^v?[1-9]/",
