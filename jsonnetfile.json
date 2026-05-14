@@ -72,6 +72,15 @@
         }
       },
       "version": "42973e5be259ba79194ad7d92ef60a6d34272bab"
+    },
+    {
+      "source": {
+        "git": {
+          "remote": "https://github.com/grafana/jsonnet-libs.git",
+          "subdir": "claude-code-mixin"
+        }
+      },
+      "version": "6a24f6dd94fb6447afd82b3260b5c33f5f212aeb"
     }
   ],
   "legacyImports": true
