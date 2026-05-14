@@ -45,6 +45,16 @@
       "source": {
         "git": {
           "remote": "https://github.com/grafana/jsonnet-libs.git",
+          "subdir": "common-lib"
+        }
+      },
+      "version": "dfcbb28e54fa00e0b821af1b38a54ce5095a9f87",
+      "sum": "aFk0llxgg7FdnXML6uqdRvRs3raf97ybg/3NIF93f2o="
+    },
+    {
+      "source": {
+        "git": {
+          "remote": "https://github.com/grafana/jsonnet-libs.git",
           "subdir": "grafana-builder"
         }
       },
@@ -60,6 +70,16 @@
       },
       "version": "12eea97fe8a8d081231eb2d98d9c7b114b193dc6",
       "sum": "zVkvwae4zHP6xeIoDvde/wldI6ClprFjnk50mMD9/z4="
+    },
+    {
+      "source": {
+        "git": {
+          "remote": "https://github.com/grafana/jsonnet-libs.git",
+          "subdir": "opentelemetry-collector-mixin"
+        }
+      },
+      "version": "42973e5be259ba79194ad7d92ef60a6d34272bab",
+      "sum": "xiWsTvbTrZu+P4kLS0G/zhs5I837QsHzJ3VJGBKAXAw="
     },
     {
       "source": {
@@ -170,6 +190,16 @@
       },
       "version": "234637319c42b0ebb1ac35ac5cdcc830fa76bd1c",
       "sum": "UuADJwhNploRwfJYGb0sr2mi+MvswKpumoOMXnGs0Dc="
+    },
+    {
+      "source": {
+        "git": {
+          "remote": "https://github.com/yugui/jsonnetunit.git",
+          "subdir": "jsonnetunit"
+        }
+      },
+      "version": "6927c58cae7624a00f368b977ccc477d4f74071f",
+      "sum": "9FFqqln65hooRF0l6rjICDtnTxUlmDj34+sKMh4sjPI="
     }
   ],
   "legacyImports": false

@@ -3,6 +3,7 @@
 {
   clusterLabel: 'cluster',
   grafanaDatasourceName: 'Prometheus',
+  datasourceName: 'Prometheus',
   cadvisorSelector: 'job="kubelet"',
   kubeletSelector: 'job="kubelet"',
   kubeStateMetricsSelector: 'job="kube-state-metrics"',

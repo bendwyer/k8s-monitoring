@@ -18,4 +18,5 @@ local withConfig(mixin) = mixin + { _config+:: sharedConfig };
     grafanaDashboards:: {},
   },
   'kube-state-metrics-mixin': withConfig(import 'kube-state-metrics-mixin/mixin.libsonnet'),
+  'opentelemetry-collector-mixin': withConfig(import 'opentelemetry-collector-mixin/mixin.libsonnet'),
 }
