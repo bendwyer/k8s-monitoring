@@ -7,6 +7,7 @@
   "rebaseWhen": "behind-base-branch",
   "separateMinorPatch": true,
   "github-actions": { "enabled": false },
+  "homeassistant-manifest": { "enabled": false },
   "kustomize": { "enabled": false },
   "jsonnet-bundler": { "versioning": "semver-coerced" },
   "postUpgradeTasks": {
