@@ -56,4 +56,5 @@ local fixOtelMetricDrift(mixin) = mixin {
   'opentelemetry-collector-mixin': fixOtelMetricDrift(
     withConfig(import 'opentelemetry-collector-mixin/mixin.libsonnet')
   ),
+  'claude-code-mixin': withConfig(import 'claude-code-mixin/mixin.libsonnet'),
 }
