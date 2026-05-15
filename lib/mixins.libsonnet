@@ -39,6 +39,30 @@ local fixOtelMetricDrift(mixin) = mixin {
   },
 };
 
+// Workaround: the claude-code-mixin's $job variable has allValue=".+" which
+// matches every target_info series in Prometheus, not just Claude Code's.
+// Tighten the All-value regex so "All" matches only the bare `claude-code`
+// job plus any `<prefix>/claude-code` variants (a prefix appears when an
+// upstream processor injects service.namespace into the metrics).
+local rewriteJobVariable(v) =
+  if std.objectHas(v, 'name') && v.name == 'job' then
+    v { allValue: '(?:.*/)?claude-code' }
+  else v;
+local rewriteTemplating(t) =
+  t + (if std.objectHas(t, 'list')
+       then { list: [rewriteJobVariable(v) for v in t.list] }
+       else {});
+local rewriteDashboardJobDefault(d) =
+  d + (if std.objectHas(d, 'templating')
+       then { templating: rewriteTemplating(d.templating) }
+       else {});
+local tightenClaudeCodeAllValue(mixin) = mixin {
+  grafanaDashboards+:: {
+    [name]: rewriteDashboardJobDefault(super[name])
+    for name in std.objectFields(super.grafanaDashboards)
+  },
+};
+
 {
   'kubernetes-mixin': withConfig(import 'kubernetes-mixin/mixin.libsonnet'),
   'grafana-mixin': withConfig(import 'grafana-mixin/mixin.libsonnet'),
@@ -56,5 +80,7 @@ local fixOtelMetricDrift(mixin) = mixin {
   'opentelemetry-collector-mixin': fixOtelMetricDrift(
     withConfig(import 'opentelemetry-collector-mixin/mixin.libsonnet')
   ),
-  'claude-code-mixin': withConfig(import 'claude-code-mixin/mixin.libsonnet'),
+  'claude-code-mixin': tightenClaudeCodeAllValue(
+    withConfig(import 'claude-code-mixin/mixin.libsonnet')
+  ),
 }
