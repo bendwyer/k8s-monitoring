@@ -28,9 +28,30 @@ local rewritePanel(p) =
   p + (if std.objectHas(p, 'targets')
        then { targets: [rewriteTarget(t) for t in p.targets] }
        else {});
+// Workaround: the opentelemetry-collector-mixin (pinned at 2025-10-23) references
+// the pre-rename `otelcol_process_uptime` metric in its $job and $instance variable
+// queries. The collector at v0.151+ emits the post-rename `otelcol_process_uptime_seconds_total`.
+// Substitute the metric name in variable query strings so the dropdowns populate.
+// Panel queries already use a regex form that matches both names — no change needed there.
+// Track upstream: https://github.com/grafana/jsonnet-libs (no per-mixin issue tracker yet).
+local rewriteUptimeVarQuery(q) =
+  if std.isString(q)
+  then std.strReplace(q, 'otelcol_process_uptime{', 'otelcol_process_uptime_seconds_total{')
+  else q;
+local rewriteUptimeVariable(v) =
+  if std.objectHas(v, 'query')
+  then v { query: rewriteUptimeVarQuery(v.query) }
+  else v;
+local rewriteUptimeTemplating(t) =
+  t + (if std.objectHas(t, 'list')
+       then { list: [rewriteUptimeVariable(v) for v in t.list] }
+       else {});
 local rewriteDashboard(d) =
   d + (if std.objectHas(d, 'panels')
        then { panels: [rewritePanel(p) for p in d.panels] }
+       else {})
+    + (if std.objectHas(d, 'templating')
+       then { templating: rewriteUptimeTemplating(d.templating) }
        else {});
 local fixOtelMetricDrift(mixin) = mixin {
   grafanaDashboards+:: {
