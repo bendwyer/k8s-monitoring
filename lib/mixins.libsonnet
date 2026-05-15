@@ -5,17 +5,18 @@ local sharedConfig = import 'config.libsonnet';
 local withConfig(mixin) = mixin + { _config+:: sharedConfig };
 
 // Workaround: the opentelemetry-collector-mixin (pinned at 2025-10-23) references
-// pre-rename gRPC metric names (e.g. rpc_server_duration_milliseconds_bucket).
-// The collector at v0.151+ emits the post-rename names (rpc_server_call_duration_seconds_bucket).
-// Substitute query strings via regex broadening so the gRPC Network-traffic panels
-// match either name. Panel units are already seconds/bytes so no scaling needed.
-// Track upstream: https://github.com/grafana/jsonnet-libs (no per-mixin issue tracker yet).
+// pre-rename OTel metric names that no longer match the cluster's emission. The
+// collector at v0.152.0+ renamed `rpc_*_duration` → `rpc_*_call_duration` (semconv
+// 1.27) and dropped unit suffixes (`_seconds`, `_bytes`, `_milliseconds`) while
+// keeping `_total` on counters. Rewrite the pre-rename names to the current
+// emission. Track upstream: https://github.com/grafana/jsonnet-libs.
 local rewriteQueryString(s) =
   local replacements = [
-    ['rpc_server_duration_milliseconds_bucket', 'rpc_server(_call)?_duration_(milli)?seconds_bucket'],
-    ['rpc_client_duration_milliseconds_bucket', 'rpc_client(_call)?_duration_(milli)?seconds_bucket'],
-    ['rpc_server_request_size_bytes_bucket', 'rpc_server(_call)?_request_size_bytes_bucket'],
-    ['rpc_client_request_size(_bytes_?)_bucket', 'rpc_client(_call)?_request_size_bytes_bucket'],
+    ['rpc_server_duration_milliseconds_bucket', 'rpc_server_call_duration_bucket'],
+    ['rpc_client_duration_milliseconds_bucket', 'rpc_client_call_duration_bucket'],
+    ['rpc_server_request_size_bytes_bucket', 'rpc_server_request_size_bucket'],
+    ['rpc_client_request_size(_bytes_?)_bucket', 'rpc_client_request_size_bucket'],
+    ['otelcol_process_uptime(_seconds_total)?', 'otelcol_process_uptime_total'],
   ];
   std.foldl(
     function(acc, pair) std.strReplace(acc, pair[0], pair[1]),
@@ -28,15 +29,13 @@ local rewritePanel(p) =
   p + (if std.objectHas(p, 'targets')
        then { targets: [rewriteTarget(t) for t in p.targets] }
        else {});
-// Workaround: the opentelemetry-collector-mixin (pinned at 2025-10-23) references
-// the pre-rename `otelcol_process_uptime` metric in its $job and $instance variable
-// queries. The collector at v0.151+ emits the post-rename `otelcol_process_uptime_seconds_total`.
-// Substitute the metric name in variable query strings so the dropdowns populate.
-// Panel queries already use a regex form that matches both names — no change needed there.
-// Track upstream: https://github.com/grafana/jsonnet-libs (no per-mixin issue tracker yet).
+// The upstream mixin passes the bare metric name `otelcol_process_uptime` into
+// commonlib.variables.new, which renders `label_values(otelcol_process_uptime{...}, ...)`
+// for the $job and $instance dropdowns. Substitute to the current emission name
+// so the dropdowns populate. Panel queries are handled by rewriteQueryString above.
 local rewriteUptimeVarQuery(q) =
   if std.isString(q)
-  then std.strReplace(q, 'otelcol_process_uptime{', 'otelcol_process_uptime_seconds_total{')
+  then std.strReplace(q, 'otelcol_process_uptime{', 'otelcol_process_uptime_total{')
   else q;
 local rewriteUptimeVariable(v) =
   if std.objectHas(v, 'query')
