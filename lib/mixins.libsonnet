@@ -17,6 +17,10 @@ local rewriteQueryString(s) =
     ['rpc_server_request_size_bytes_bucket', 'rpc_server_request_size_bucket'],
     ['rpc_client_request_size(_bytes_?)_bucket', 'rpc_client_request_size_bucket'],
     ['otelcol_process_uptime(_seconds_total)?', 'otelcol_process_uptime_total'],
+    ['http_server_request_duration_seconds_bucket', 'http_server_request_duration_bucket'],
+    ['http_client_request_duration_seconds_bucket', 'http_client_request_duration_bucket'],
+    ['http_server_request_body_size_bytes_bucket', 'http_server_request_body_size_bucket'],
+    ['http_client_request_body_size_bytes_bucket', 'http_client_request_body_size_bucket'],
   ];
   std.foldl(
     function(acc, pair) std.strReplace(acc, pair[0], pair[1]),
