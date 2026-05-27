@@ -13,6 +13,6 @@ jobs:
   renovate:
     uses: bendwyer/github-workflows/.github/workflows/renovatebot.yml@main
     with:
-      gh_app_id: ${{ vars.GH_APP_ID }}
+      gh_client_id: ${{ vars.GH_APP_CLIENT_ID }}
     secrets:
       gh_app_private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
