@@ -35,6 +35,16 @@
       "source": {
         "git": {
           "remote": "https://github.com/grafana/grafonnet.git",
+          "subdir": "gen/grafonnet-v11.0.0"
+        }
+      },
+      "version": "7380c9c64fb973f34c3ec46265621a2b0dee0058",
+      "sum": "0BvzR0i4bS4hc2O3xDv6i9m52z7mPrjvqxtcPrGhynA="
+    },
+    {
+      "source": {
+        "git": {
+          "remote": "https://github.com/grafana/grafonnet.git",
           "subdir": "gen/grafonnet-v11.4.0"
         }
       },
@@ -75,6 +85,16 @@
       "source": {
         "git": {
           "remote": "https://github.com/grafana/jsonnet-libs.git",
+          "subdir": "logs-lib"
+        }
+      },
+      "version": "08dd6a95dfc7384236f4f331d72d4b37cb59669a",
+      "sum": "rgzaIMC4Gujx86mPdsVfQnzSfxzfuCg/sZPrDJBV3bU="
+    },
+    {
+      "source": {
+        "git": {
+          "remote": "https://github.com/grafana/jsonnet-libs.git",
           "subdir": "mixin-utils"
         }
       },
@@ -90,6 +110,16 @@
       },
       "version": "42973e5be259ba79194ad7d92ef60a6d34272bab",
       "sum": "xiWsTvbTrZu+P4kLS0G/zhs5I837QsHzJ3VJGBKAXAw="
+    },
+    {
+      "source": {
+        "git": {
+          "remote": "https://github.com/grafana/jsonnet-libs.git",
+          "subdir": "snmp-observ-lib"
+        }
+      },
+      "version": "08dd6a95dfc7384236f4f331d72d4b37cb59669a",
+      "sum": "Or8O8AqXt/hCi5FvwzQ/gvW0yFa8lgVIpNdHt7iUfJ8="
     },
     {
       "source": {

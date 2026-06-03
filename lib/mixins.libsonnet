@@ -2,7 +2,43 @@
 // Add or remove mixins here — dashboards, alerts, and rules all reference this file.
 
 local sharedConfig = import 'config.libsonnet';
-local withConfig(mixin) = mixin + { _config+:: sharedConfig };
+local withConfig(mixin) = mixin { _config+:: sharedConfig };
+
+// snmp-observ-lib is a parameterized library (not a ready-made mixin), so it is
+// instantiated rather than imported with withConfig. metricsSource picks the
+// vendor signal sets (generic if_mib + MikroTik health). Loki log panels are
+// disabled: they expect sysname/syslog_app_name/level labels, which the cluster's
+// syslog stream (service_name/detected_level) does not carry.
+local snmpObservLib = import 'snmp-observ-lib/main.libsonnet';
+// Workaround: with metricsSource lacking 'cisco', the Cisco FRU alert
+// (cefcFRUPowerOperStatus) renders with an empty `({ }) == 1` selector, which is
+// invalid PromQL and would fail the whole rule group load. Drop any alert rule
+// whose expr contains an empty `{ }` matcher.
+local dropEmptySelectorAlerts(mixin) = mixin {
+  prometheusAlerts+:: {
+    groups: [
+      g {
+        rules: [
+          r
+          for r in g.rules
+          if !(std.objectHas(r, 'expr') && std.length(std.findSubstr('{ }', r.expr)) > 0)
+        ],
+      }
+      for g in mixin.prometheusAlerts.groups
+    ],
+  },
+};
+local snmpMixin = dropEmptySelectorAlerts(
+  (snmpObservLib.new() + snmpObservLib.withConfigMixin({
+     // Match all SNMP scrape jobs (snmp-mikrotik today, snmp-<device> later) rather
+     // than one job, so the mixin covers every SNMP device. A non-empty selector
+     // also keeps the "target down" alert (up{...}==0), which the lib omits when the
+     // selector is empty since a bare up==0 would match every target in the cluster.
+     filteringSelector: 'job=~"snmp.*"',
+     metricsSource: ['generic', 'mikrotik'],
+     enableLokiLogs: false,
+   })).asMonitoringMixin()
+);
 
 // Workaround: the opentelemetry-collector-mixin (pinned at 2025-10-23) references
 // pre-rename OTel metric names that no longer match the cluster's emission. The
@@ -53,9 +89,9 @@ local rewriteDashboard(d) =
   d + (if std.objectHas(d, 'panels')
        then { panels: [rewritePanel(p) for p in d.panels] }
        else {})
-    + (if std.objectHas(d, 'templating')
-       then { templating: rewriteUptimeTemplating(d.templating) }
-       else {});
+  + (if std.objectHas(d, 'templating')
+     then { templating: rewriteUptimeTemplating(d.templating) }
+     else {});
 local fixOtelMetricDrift(mixin) = mixin {
   grafanaDashboards+:: {
     [name]: rewriteDashboard(super[name])
@@ -107,4 +143,5 @@ local tightenClaudeCodeAllValue(mixin) = mixin {
   'claude-code-mixin': tightenClaudeCodeAllValue(
     withConfig(import 'claude-code-mixin/mixin.libsonnet')
   ),
+  'snmp-mixin': snmpMixin,
 }

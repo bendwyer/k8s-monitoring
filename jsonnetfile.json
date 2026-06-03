@@ -81,6 +81,15 @@
         }
       },
       "version": "6a24f6dd94fb6447afd82b3260b5c33f5f212aeb"
+    },
+    {
+      "source": {
+        "git": {
+          "remote": "https://github.com/grafana/jsonnet-libs.git",
+          "subdir": "snmp-observ-lib"
+        }
+      },
+      "version": "08dd6a95dfc7384236f4f331d72d4b37cb59669a"
     }
   ],
   "legacyImports": true
