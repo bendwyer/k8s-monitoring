@@ -8,7 +8,7 @@
           "subdir": "grafana-mixin"
         }
       },
-      "version": "93e01bd626e6bc423c1d51491bf70482d07f54f4",
+      "version": "3fcdbc5a6e5c955bd42bd3715dd03cbad2b078c1",
       "sum": "sRjOJwJhhkCDmMQls7clo/csVix/b47W+Wc3YCzn64Y="
     },
     {
@@ -228,7 +228,7 @@
           "subdir": "documentation/prometheus-mixin"
         }
       },
-      "version": "234637319c42b0ebb1ac35ac5cdcc830fa76bd1c",
+      "version": "08f9ec4de871ac1a662dd5401daadab1907c2f5e",
       "sum": "UuADJwhNploRwfJYGb0sr2mi+MvswKpumoOMXnGs0Dc="
     },
     {
