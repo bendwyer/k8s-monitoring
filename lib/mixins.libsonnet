@@ -28,17 +28,52 @@ local dropEmptySelectorAlerts(mixin) = mixin {
     ],
   },
 };
-local snmpMixin = dropEmptySelectorAlerts(
-  (snmpObservLib.new() + snmpObservLib.withConfigMixin({
-     // Match all SNMP scrape jobs (snmp-mikrotik today, snmp-<device> later) rather
-     // than one job, so the mixin covers every SNMP device. A non-empty selector
-     // also keeps the "target down" alert (up{...}==0), which the lib omits when the
-     // selector is empty since a bare up==0 would match every target in the cluster.
-     filteringSelector: 'job=~"snmp.*"',
-     metricsSource: ['generic', 'mikrotik'],
-     enableLokiLogs: false,
-   })).asMonitoringMixin()
+local snmpConfig = {
+  // Match all SNMP scrape jobs (snmp-mikrotik today, snmp-<device> later) rather than
+  // one job, so the mixin covers every SNMP device. A non-empty selector also keeps the
+  // "target down" alert (up{...}==0), which the lib omits when the selector is empty
+  // since a bare up==0 would match every target in the cluster.
+  filteringSelector: 'job=~"snmp.*"',
+  metricsSource: ['generic', 'mikrotik'],
+  enableLokiLogs: false,
+};
+local snmpRaw = snmpObservLib.new() + snmpObservLib.withConfigMixin(snmpConfig);
+
+// Workaround: our OTel pipeline (prometheusremotewrite add_metric_suffixes) appends
+// _total to SNMP counters, but observ-lib was written for a native Prometheus scrape
+// and queries the bare names. Round-trip each dashboard and alert group through JSON
+// and append _total to counter selectors so the counter-based panels and alerts match.
+// Same class of fix as fixOtelMetricDrift above.
+//
+// The counter set is derived from observ-lib's own signal metadata (type: 'counter')
+// rather than hard-coded, so counters added by future observ-lib versions are picked up
+// automatically. Gauges are type: 'gauge', so they are excluded and stay bare. The
+// assert turns an observ-lib signal-schema change into a loud build failure instead of
+// silently leaving counters un-suffixed.
+local snmpCounters = std.set([
+  std.stripChars(std.split(src.expr, '{')[0], ' ')
+  for group in std.objectValues(snmpRaw.config.signals)
+  if std.isObject(group) && std.objectHas(group, 'signals')
+  for sig in std.objectValues(group.signals)
+  if std.objectHas(sig, 'type') && sig.type == 'counter' && std.objectHas(sig, 'sources')
+  for src in std.objectValues(sig.sources)
+  if std.objectHas(src, 'expr') && std.length(std.findSubstr('{', src.expr)) > 0
+]);
+assert std.length(snmpCounters) > 0 :
+       'snmp-mixin: derived 0 counters from observ-lib signals; the signal schema likely changed, review fixSnmpCounterDrift';
+local addTotal(s) = std.foldl(
+  function(acc, m) std.strReplace(acc, m + '{', m + '_total{'),
+  snmpCounters,
+  s
 );
+local fixSnmpCounterDrift(mixin) = mixin {
+  grafanaDashboards+:: {
+    [name]: std.parseJson(addTotal(std.manifestJsonEx(mixin.grafanaDashboards[name], '')))
+    for name in std.objectFields(mixin.grafanaDashboards)
+  },
+  prometheusAlerts+:: std.parseJson(addTotal(std.manifestJsonEx(mixin.prometheusAlerts, ''))),
+};
+local snmpMixin = dropEmptySelectorAlerts(fixSnmpCounterDrift(snmpRaw.asMonitoringMixin()));
 
 // Workaround: the opentelemetry-collector-mixin (pinned at 2025-10-23) references
 // pre-rename OTel metric names that no longer match the cluster's emission. The
