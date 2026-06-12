@@ -68,8 +68,8 @@
           "subdir": "common-lib"
         }
       },
-      "version": "f5b6f1df255751f0f56033dc762b8ac693a31c4c",
-      "sum": "EhjrpbQ9EtuR+kQc5OJ9B2SF7FoMbW2e7AuCeXSHC1I="
+      "version": "438843982d666cf50967a41922db4456b2c51d4c",
+      "sum": "GhrW1n42GrYIh+O1mb5s7fEwvMWeiebA4hIPgnIRpLk="
     },
     {
       "source": {
@@ -78,7 +78,7 @@
           "subdir": "grafana-builder"
         }
       },
-      "version": "f5b6f1df255751f0f56033dc762b8ac693a31c4c",
+      "version": "438843982d666cf50967a41922db4456b2c51d4c",
       "sum": "TWpxm5vPO23V3hoF3pdwGs1NvR+PQce9baN716mJq+4="
     },
     {
@@ -88,7 +88,7 @@
           "subdir": "logs-lib"
         }
       },
-      "version": "f5b6f1df255751f0f56033dc762b8ac693a31c4c",
+      "version": "438843982d666cf50967a41922db4456b2c51d4c",
       "sum": "rgzaIMC4Gujx86mPdsVfQnzSfxzfuCg/sZPrDJBV3bU="
     },
     {
@@ -98,7 +98,7 @@
           "subdir": "mixin-utils"
         }
       },
-      "version": "f5b6f1df255751f0f56033dc762b8ac693a31c4c",
+      "version": "438843982d666cf50967a41922db4456b2c51d4c",
       "sum": "zVkvwae4zHP6xeIoDvde/wldI6ClprFjnk50mMD9/z4="
     },
     {
@@ -138,8 +138,8 @@
           "subdir": "operations/mimir-mixin"
         }
       },
-      "version": "c7df55d0bd98d9e96cfc772c76f7fb4e777944fc",
-      "sum": "DODr7SJGEvrn/EN/QxaUn+78G7wCf0vslIQ+iOggA1A="
+      "version": "d6267b2ea3ffa02197cbab6d9a323746e33029bc",
+      "sum": "LBdp2eNTJjDQ0w/DD+nooWto6/oVf3OtzpT3u4622f4="
     },
     {
       "source": {
@@ -188,7 +188,7 @@
           "subdir": "jsonnet/kube-state-metrics-mixin"
         }
       },
-      "version": "2ef24549bff9865db214ccb03cc36f1fc214d1be",
+      "version": "45e1513e95beaaa2f2df92af9958cd9837bb66ab",
       "sum": "qclI7LwucTjBef3PkGBkKxF0mfZPbHnn4rlNWKGtR4c="
     },
     {
@@ -198,7 +198,7 @@
           "subdir": "jsonnet/kube-prometheus/lib"
         }
       },
-      "version": "5153c2913f3a161db9bd9d1fffc6e7fa945fd9f8",
+      "version": "ee8456711cae0544a130daf1578905bee5e7b2da",
       "sum": "QKRgrgEZ3k9nLmLCrDBaeIGVqQZf+AvZTcnhdLk3TrA="
     },
     {
