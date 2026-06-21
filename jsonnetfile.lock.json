@@ -138,7 +138,7 @@
           "subdir": "operations/mimir-mixin"
         }
       },
-      "version": "d6267b2ea3ffa02197cbab6d9a323746e33029bc",
+      "version": "ee3dd02dd0b484b9995ec3e391dbe0a8a45dea02",
       "sum": "LBdp2eNTJjDQ0w/DD+nooWto6/oVf3OtzpT3u4622f4="
     },
     {
@@ -198,7 +198,7 @@
           "subdir": "jsonnet/kube-prometheus/lib"
         }
       },
-      "version": "ee8456711cae0544a130daf1578905bee5e7b2da",
+      "version": "9e062fd9b1e0e68a0ea4568cd2b6202d9c711d8c",
       "sum": "QKRgrgEZ3k9nLmLCrDBaeIGVqQZf+AvZTcnhdLk3TrA="
     },
     {
@@ -208,7 +208,7 @@
           "subdir": "doc/alertmanager-mixin"
         }
       },
-      "version": "92dc6a427339862c38836e248fd94a9c8de97de6",
+      "version": "3b35f21e3d0ff75515c20197ba3cc81af1697177",
       "sum": "diZM7b/jQKqaIjuVSiseRaxgpgdQyVCtCgh0XhyPnXQ="
     },
     {
