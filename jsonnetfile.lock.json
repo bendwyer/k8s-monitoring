@@ -68,7 +68,7 @@
           "subdir": "common-lib"
         }
       },
-      "version": "ac92834705e9dfe2b705c022b8e415c72f970d97",
+      "version": "8b721e2c42d7dab40b634eca65ac99ce5cf21cee",
       "sum": "GhrW1n42GrYIh+O1mb5s7fEwvMWeiebA4hIPgnIRpLk="
     },
     {
@@ -78,7 +78,7 @@
           "subdir": "grafana-builder"
         }
       },
-      "version": "ac92834705e9dfe2b705c022b8e415c72f970d97",
+      "version": "8b721e2c42d7dab40b634eca65ac99ce5cf21cee",
       "sum": "TWpxm5vPO23V3hoF3pdwGs1NvR+PQce9baN716mJq+4="
     },
     {
@@ -88,7 +88,7 @@
           "subdir": "logs-lib"
         }
       },
-      "version": "ac92834705e9dfe2b705c022b8e415c72f970d97",
+      "version": "8b721e2c42d7dab40b634eca65ac99ce5cf21cee",
       "sum": "rgzaIMC4Gujx86mPdsVfQnzSfxzfuCg/sZPrDJBV3bU="
     },
     {
@@ -98,7 +98,7 @@
           "subdir": "mixin-utils"
         }
       },
-      "version": "ac92834705e9dfe2b705c022b8e415c72f970d97",
+      "version": "8b721e2c42d7dab40b634eca65ac99ce5cf21cee",
       "sum": "zVkvwae4zHP6xeIoDvde/wldI6ClprFjnk50mMD9/z4="
     },
     {
@@ -138,8 +138,8 @@
           "subdir": "operations/mimir-mixin"
         }
       },
-      "version": "c1f5d458315949d9f26b50b899716e1a016f85c6",
-      "sum": "wP1j8yjYq1Z//o6w3sqjEPv5RJ6I6IqF0kR+F1WPYk0="
+      "version": "c25d4b0a09679e3065f6828ffc216ab5c0cf336f",
+      "sum": "FzTtd6knnpTrJjTWx+R19gNFBArgTuVeanyVijtiwI0="
     },
     {
       "source": {
@@ -198,7 +198,7 @@
           "subdir": "jsonnet/kube-prometheus/lib"
         }
       },
-      "version": "2b49d6f4e55bd25b346c333f26879686fae498d6",
+      "version": "b286009537aa265b63a5a45ad3381c8eb513b046",
       "sum": "QKRgrgEZ3k9nLmLCrDBaeIGVqQZf+AvZTcnhdLk3TrA="
     },
     {
@@ -228,7 +228,7 @@
           "subdir": "documentation/prometheus-mixin"
         }
       },
-      "version": "08f9ec4de871ac1a662dd5401daadab1907c2f5e",
+      "version": "d8c036c27c474f3ba6a79a117a1cba976ddaf5b6",
       "sum": "UuADJwhNploRwfJYGb0sr2mi+MvswKpumoOMXnGs0Dc="
     },
     {
