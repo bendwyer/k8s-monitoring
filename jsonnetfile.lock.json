@@ -28,8 +28,8 @@
           "subdir": "gen/grafonnet-latest"
         }
       },
-      "version": "78be4388b03a429d4c3e4de462a720d06dbdeced",
-      "sum": "V9vAj21qJOc2DlMPDgB1eEjSQU4A+sAA4AXuJ6bd4xc="
+      "version": "41e6bfcbe4ef1054298ffff8664f1354c897dd2d",
+      "sum": "djejYCGNdtWsAd39+cHU1QNBIUKePhUyY4QNZt7XO4o="
     },
     {
       "source": {
@@ -38,7 +38,7 @@
           "subdir": "gen/grafonnet-v11.0.0"
         }
       },
-      "version": "78be4388b03a429d4c3e4de462a720d06dbdeced",
+      "version": "41e6bfcbe4ef1054298ffff8664f1354c897dd2d",
       "sum": "0BvzR0i4bS4hc2O3xDv6i9m52z7mPrjvqxtcPrGhynA="
     },
     {
@@ -48,8 +48,18 @@
           "subdir": "gen/grafonnet-v11.4.0"
         }
       },
-      "version": "78be4388b03a429d4c3e4de462a720d06dbdeced",
+      "version": "41e6bfcbe4ef1054298ffff8664f1354c897dd2d",
       "sum": "aVAX09paQYNOoCSKVpuk1exVIyBoMt/C50QJI+Q/3nA="
+    },
+    {
+      "source": {
+        "git": {
+          "remote": "https://github.com/grafana/grafonnet.git",
+          "subdir": "gen/grafonnet-v13.0.0"
+        }
+      },
+      "version": "41e6bfcbe4ef1054298ffff8664f1354c897dd2d",
+      "sum": "hZfIVja9O6czp3Pg8fzqmN891FLz8nPvy2IJND5qlGw="
     },
     {
       "source": {
@@ -138,8 +148,8 @@
           "subdir": "operations/mimir-mixin"
         }
       },
-      "version": "7f1e5118090a641de8e13b0c91964ac6f1780170",
-      "sum": "b0mGcAIsT68EEqz4ojZCTBMUB5vbQ54RDAbaFAqbP4c="
+      "version": "aff393fd003b57676294a88cd0a484200a2ed39f",
+      "sum": "2hhWGJoXZbcrcOAkzVFnuNjnF+rMWbvY7ZH6+gJLcfE="
     },
     {
       "source": {
@@ -198,7 +208,7 @@
           "subdir": "jsonnet/kube-prometheus/lib"
         }
       },
-      "version": "9d2e5370188e1b52815184d2d7f1fd77fb3bb004",
+      "version": "a44e949d79c6a608fe2261edcff9adaef7c00923",
       "sum": "QKRgrgEZ3k9nLmLCrDBaeIGVqQZf+AvZTcnhdLk3TrA="
     },
     {
@@ -228,7 +238,7 @@
           "subdir": "documentation/prometheus-mixin"
         }
       },
-      "version": "d8c036c27c474f3ba6a79a117a1cba976ddaf5b6",
+      "version": "3c2a2ff7aec85b531d74954cc99da75844dc106a",
       "sum": "UuADJwhNploRwfJYGb0sr2mi+MvswKpumoOMXnGs0Dc="
     },
     {
