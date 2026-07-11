@@ -148,8 +148,8 @@
           "subdir": "operations/mimir-mixin"
         }
       },
-      "version": "aff393fd003b57676294a88cd0a484200a2ed39f",
-      "sum": "2hhWGJoXZbcrcOAkzVFnuNjnF+rMWbvY7ZH6+gJLcfE="
+      "version": "5d9774ea9fc24c83c16294a352486850cb2dfef9",
+      "sum": "M3PSdx6FZwF2sm/1gsdbdl+tmBNbVvF3OSKfGaXxzjk="
     },
     {
       "source": {
@@ -228,7 +228,7 @@
           "subdir": "docs/node-mixin"
         }
       },
-      "version": "e9ef753cb1dafeb0dac304ff242425efe5f7a429",
+      "version": "1b9788b409971c6270d368c639054f27e0c96c3e",
       "sum": "PGx1okd1Ny4U+Ma3AV0haZWvXnX8eJBN4+BsQInWUo4="
     },
     {
