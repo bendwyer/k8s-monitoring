@@ -39,7 +39,7 @@ local snmpConfig = {
 };
 local snmpRaw = snmpObservLib.new() + snmpObservLib.withConfigMixin(snmpConfig);
 
-// Workaround: our OTel pipeline (prometheusremotewrite add_metric_suffixes) appends
+// Workaround: our OTel pipeline (prometheus_remote_write add_metric_suffixes) appends
 // _total to SNMP counters, but observ-lib was written for a native Prometheus scrape
 // and queries the bare names. Round-trip each dashboard and alert group through JSON
 // and append _total to counter selectors so the counter-based panels and alerts match.
