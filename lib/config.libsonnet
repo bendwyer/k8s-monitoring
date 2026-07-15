@@ -15,4 +15,8 @@
   alertmanagerSelector: 'job="alertmanager"',
   prometheusSelector: 'job="prometheus"',
   showMultiCluster: false,
+
+  // Defaults (40/20) fire during normal disk reclaim cycles.
+  fsSpaceFillingUpWarningThreshold: 15,
+  fsSpaceFillingUpCriticalThreshold: 10,
 }
