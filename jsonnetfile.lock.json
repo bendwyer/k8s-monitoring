@@ -8,7 +8,7 @@
           "subdir": "grafana-mixin"
         }
       },
-      "version": "593cfcf13df7f1bb3f6d349838ca0e3194e71c51",
+      "version": "15b1262505b6f07c4f3497e8b62995bbad3f2da7",
       "sum": "sRjOJwJhhkCDmMQls7clo/csVix/b47W+Wc3YCzn64Y="
     },
     {
@@ -148,8 +148,8 @@
           "subdir": "operations/mimir-mixin"
         }
       },
-      "version": "cda4a6769e9e2b2bed4ffe3f5319ef0f413f675d",
-      "sum": "jG8MkRihZU0MnW4rJ62yMx39U0i+0Yf3g+eJ5oNOznU="
+      "version": "c8d1cc9c98e3839475f637f5c4fc516eeb3cee90",
+      "sum": "kjQU4gYxPHVOrpuUDTYfhg9+ToWEVR7TxmsEbsW7C9U="
     },
     {
       "source": {
@@ -208,7 +208,7 @@
           "subdir": "jsonnet/kube-prometheus/lib"
         }
       },
-      "version": "0e50f469312d539abfd3a26f0d57553452d02e82",
+      "version": "4eafa8b5395ef839bb02a55e3b5fbdfa03280cf9",
       "sum": "0mD7V+3jCnIp+OZF/g+EwtS6BgUW2r2bNAdwQ8uulGA="
     },
     {
