@@ -78,7 +78,7 @@
           "subdir": "common-lib"
         }
       },
-      "version": "4418ed40c9082ba99c688ccbd64334cf8fd834ed",
+      "version": "d01205894528f52fd1d9f991aa8475abfb50bead",
       "sum": "GhrW1n42GrYIh+O1mb5s7fEwvMWeiebA4hIPgnIRpLk="
     },
     {
@@ -88,7 +88,7 @@
           "subdir": "grafana-builder"
         }
       },
-      "version": "4418ed40c9082ba99c688ccbd64334cf8fd834ed",
+      "version": "d01205894528f52fd1d9f991aa8475abfb50bead",
       "sum": "FqEJAICz9T90PMJLW8i4HXazyWQPNzi68A8UauXa7GQ="
     },
     {
@@ -98,7 +98,7 @@
           "subdir": "logs-lib"
         }
       },
-      "version": "4418ed40c9082ba99c688ccbd64334cf8fd834ed",
+      "version": "d01205894528f52fd1d9f991aa8475abfb50bead",
       "sum": "rgzaIMC4Gujx86mPdsVfQnzSfxzfuCg/sZPrDJBV3bU="
     },
     {
@@ -108,7 +108,7 @@
           "subdir": "mixin-utils"
         }
       },
-      "version": "4418ed40c9082ba99c688ccbd64334cf8fd834ed",
+      "version": "d01205894528f52fd1d9f991aa8475abfb50bead",
       "sum": "zVkvwae4zHP6xeIoDvde/wldI6ClprFjnk50mMD9/z4="
     },
     {
@@ -138,7 +138,7 @@
           "subdir": "production/loki-mixin"
         }
       },
-      "version": "052f8ee967b7ea30f1e79eddbc756fc5ddae418e",
+      "version": "5003600d7c787b5f047c8d1b0198559471b0caa5",
       "sum": "eWbTcw/pDtp0PmKktHzTxMH4uS+7UwDmbKOypRyxlCM="
     },
     {
@@ -148,8 +148,8 @@
           "subdir": "operations/mimir-mixin"
         }
       },
-      "version": "80a0e9adb04e1348fbc5e2c612c009b589d02387",
-      "sum": "kjQU4gYxPHVOrpuUDTYfhg9+ToWEVR7TxmsEbsW7C9U="
+      "version": "a7540010caaf4eaffe11b4c5c0a27022a63a70ad",
+      "sum": "ArsrR6Aoh2Z4VtFWEFCis4Gp0UQGwSMUOdsaranfP14="
     },
     {
       "source": {
