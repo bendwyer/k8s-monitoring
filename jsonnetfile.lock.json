@@ -8,7 +8,7 @@
           "subdir": "grafana-mixin"
         }
       },
-      "version": "15b1262505b6f07c4f3497e8b62995bbad3f2da7",
+      "version": "12cb42922a6c6604e62d5f9ed512fd0d9febf4ec",
       "sum": "sRjOJwJhhkCDmMQls7clo/csVix/b47W+Wc3YCzn64Y="
     },
     {
@@ -148,7 +148,7 @@
           "subdir": "operations/mimir-mixin"
         }
       },
-      "version": "a7540010caaf4eaffe11b4c5c0a27022a63a70ad",
+      "version": "5b72e3ec82dfec0b2c397db23c21b374e99f095b",
       "sum": "ArsrR6Aoh2Z4VtFWEFCis4Gp0UQGwSMUOdsaranfP14="
     },
     {
