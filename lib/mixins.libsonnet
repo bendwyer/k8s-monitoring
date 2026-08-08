@@ -175,6 +175,19 @@ local tightenClaudeCodeAllValue(mixin) = mixin {
   'opentelemetry-collector-mixin': fixOtelMetricDrift(
     withConfig(import 'opentelemetry-collector-mixin/mixin.libsonnet')
   ),
+  // alloy-mixin: the default cluster/namespace selector is left alone because
+  // the collectors label their own self-metrics with namespace and pod.
+  // enableAlloyCluster is off because nothing is clustered yet: a per-node
+  // collector is already its own shard, so gossip would buy nothing. Turn it on
+  // with the first genuinely clustered instance, where sharding scrape targets
+  // across replicas is the point. logsFilterSelector is the mixin's own knob for
+  // scoping log panels, and the pattern covers every collector, not just today's.
+  'alloy-mixin': withConfig(import 'alloy-mixin/mixin.libsonnet') {
+    _config+:: {
+      enableAlloyCluster: false,
+      logsFilterSelector: 'service_name=~"alloy-.*"',
+    },
+  },
   'claude-code-mixin': tightenClaudeCodeAllValue(
     withConfig(import 'claude-code-mixin/mixin.libsonnet')
   ),
