@@ -76,14 +76,19 @@ local fixSnmpCounterDrift(mixin) = mixin {
 };
 local snmpMixin = dropEmptySelectorAlerts(fixSnmpCounterDrift(snmpRaw.asMonitoringMixin()));
 
-// Workaround: the claude-code-mixin's $job variable has allValue=".+" which
-// matches every target_info series in Prometheus, not just Claude Code's.
-// Tighten the All-value regex so "All" matches only the bare `claude-code`
-// job plus any `<prefix>/claude-code` variants (a prefix appears when an
-// upstream processor injects service.namespace into the metrics).
+// Workaround: the claude-code-mixin's $job variable has allValue=".+", and the
+// panels select target_info{job=~"$job"}. target_info carries every OTLP source
+// in the cluster, so "All" pulls in unrelated jobs (snmp-mikrotik and the OTel
+// collectors' own telemetry today). Pin the All-value to this mixin's own job.
+//
+// It used to also allow a `<prefix>/claude-code` form, which appeared when a
+// collector injected service.namespace into the metrics. Nothing does that now
+// that the application OTLP path terminates on Alloy, so the prefix is dropped
+// rather than carried: if one ever reappears, the empty panel should point at
+// whatever started injecting it.
 local rewriteJobVariable(v) =
   if std.objectHas(v, 'name') && v.name == 'job' then
-    v { allValue: '(?:.*/)?claude-code' }
+    v { allValue: 'claude-code' }
   else v;
 local rewriteTemplating(t) =
   t + (if std.objectHas(t, 'list')
@@ -124,17 +129,17 @@ local tightenClaudeCodeAllValue(mixin) = mixin {
     },
   },
   'kube-state-metrics-mixin': withConfig(import 'kube-state-metrics-mixin/mixin.libsonnet'),
-  // alloy-mixin: the default cluster/namespace selector is left alone because
-  // the collectors label their own self-metrics with namespace and pod.
-  // enableAlloyCluster is off because nothing is clustered yet: a per-node
-  // collector is already its own shard, so gossip would buy nothing. Turn it on
-  // with the first genuinely clustered instance, where sharding scrape targets
-  // across replicas is the point. logsFilterSelector is the mixin's own knob for
-  // scoping log panels, and the pattern covers every collector, not just today's.
+  // alloy-mixin: the default cluster/namespace selector is left alone because the
+  // collectors label their own self-metrics with namespace and pod. enableAlloyCluster
+  // is back at its default of true now that alloy-singleton runs clustered; every
+  // clustering alert joins on cluster_node_info, which the unclustered alloy-node
+  // never emits, so those alerts scope themselves rather than needing a selector.
+  // logsFilterSelector matches on the container name, which is what Loki derives
+  // service_name from, so it is "alloy" for every collector rather than the
+  // component name.
   'alloy-mixin': withConfig(import 'alloy-mixin/mixin.libsonnet') {
     _config+:: {
-      enableAlloyCluster: false,
-      logsFilterSelector: 'service_name=~"alloy-.*"',
+      logsFilterSelector: 'service_name="alloy"',
     },
   },
   'claude-code-mixin': tightenClaudeCodeAllValue(
