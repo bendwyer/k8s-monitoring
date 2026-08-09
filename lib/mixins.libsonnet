@@ -39,11 +39,12 @@ local snmpConfig = {
 };
 local snmpRaw = snmpObservLib.new() + snmpObservLib.withConfigMixin(snmpConfig);
 
-// Workaround: our OTel pipeline (prometheus_remote_write add_metric_suffixes) appends
-// _total to SNMP counters, but observ-lib was written for a native Prometheus scrape
-// and queries the bare names. Round-trip each dashboard and alert group through JSON
-// and append _total to counter selectors so the counter-based panels and alerts match.
-// Same class of fix as fixOtelMetricDrift above.
+// Workaround: the edge collector's OTel pipeline (prometheus_remote_write
+// add_metric_suffixes) appends _total to SNMP counters, but observ-lib was written for a
+// native Prometheus scrape and queries the bare names. Round-trip each dashboard and alert
+// group through JSON and append _total to counter selectors so the counter-based panels and
+// alerts match. This one outlives the OTel collectors it was written for only until the SNMP
+// scrape moves to Alloy's prometheus.exporter.snmp, which emits the bare names natively.
 //
 // The counter set is derived from observ-lib's own signal metadata (type: 'counter')
 // rather than hard-coded, so counters added by future observ-lib versions are picked up
@@ -74,65 +75,6 @@ local fixSnmpCounterDrift(mixin) = mixin {
   prometheusAlerts+:: std.parseJson(addTotal(std.manifestJsonEx(mixin.prometheusAlerts, ''))),
 };
 local snmpMixin = dropEmptySelectorAlerts(fixSnmpCounterDrift(snmpRaw.asMonitoringMixin()));
-
-// Workaround: the opentelemetry-collector-mixin (pinned at 2025-10-23) references
-// pre-rename OTel metric names that no longer match the cluster's emission. The
-// collector at v0.152.0+ renamed `rpc_*_duration` → `rpc_*_call_duration` (semconv
-// 1.27) and dropped unit suffixes (`_seconds`, `_bytes`, `_milliseconds`) while
-// keeping `_total` on counters. Rewrite the pre-rename names to the current
-// emission. Track upstream: https://github.com/grafana/jsonnet-libs.
-local rewriteQueryString(s) =
-  local replacements = [
-    ['rpc_server_duration_milliseconds_bucket', 'rpc_server_call_duration_bucket'],
-    ['rpc_client_duration_milliseconds_bucket', 'rpc_client_call_duration_bucket'],
-    ['rpc_server_request_size_bytes_bucket', 'rpc_server_request_size_bucket'],
-    ['rpc_client_request_size(_bytes_?)_bucket', 'rpc_client_request_size_bucket'],
-    ['otelcol_process_uptime(_seconds_total)?', 'otelcol_process_uptime_total'],
-    ['http_server_request_duration_seconds_bucket', 'http_server_request_duration_bucket'],
-    ['http_client_request_duration_seconds_bucket', 'http_client_request_duration_bucket'],
-    ['http_server_request_body_size_bytes_bucket', 'http_server_request_body_size_bucket'],
-    ['http_client_request_body_size_bytes_bucket', 'http_client_request_body_size_bucket'],
-  ];
-  std.foldl(
-    function(acc, pair) std.strReplace(acc, pair[0], pair[1]),
-    replacements,
-    s
-  );
-local rewriteTarget(t) =
-  if std.objectHas(t, 'expr') then t { expr: rewriteQueryString(t.expr) } else t;
-local rewritePanel(p) =
-  p + (if std.objectHas(p, 'targets')
-       then { targets: [rewriteTarget(t) for t in p.targets] }
-       else {});
-// The upstream mixin passes the bare metric name `otelcol_process_uptime` into
-// commonlib.variables.new, which renders `label_values(otelcol_process_uptime{...}, ...)`
-// for the $job and $instance dropdowns. Substitute to the current emission name
-// so the dropdowns populate. Panel queries are handled by rewriteQueryString above.
-local rewriteUptimeVarQuery(q) =
-  if std.isString(q)
-  then std.strReplace(q, 'otelcol_process_uptime{', 'otelcol_process_uptime_total{')
-  else q;
-local rewriteUptimeVariable(v) =
-  if std.objectHas(v, 'query')
-  then v { query: rewriteUptimeVarQuery(v.query) }
-  else v;
-local rewriteUptimeTemplating(t) =
-  t + (if std.objectHas(t, 'list')
-       then { list: [rewriteUptimeVariable(v) for v in t.list] }
-       else {});
-local rewriteDashboard(d) =
-  d + (if std.objectHas(d, 'panels')
-       then { panels: [rewritePanel(p) for p in d.panels] }
-       else {})
-  + (if std.objectHas(d, 'templating')
-     then { templating: rewriteUptimeTemplating(d.templating) }
-     else {});
-local fixOtelMetricDrift(mixin) = mixin {
-  grafanaDashboards+:: {
-    [name]: rewriteDashboard(super[name])
-    for name in std.objectFields(super.grafanaDashboards)
-  },
-};
 
 // Workaround: the claude-code-mixin's $job variable has allValue=".+" which
 // matches every target_info series in Prometheus, not just Claude Code's.
@@ -182,9 +124,6 @@ local tightenClaudeCodeAllValue(mixin) = mixin {
     },
   },
   'kube-state-metrics-mixin': withConfig(import 'kube-state-metrics-mixin/mixin.libsonnet'),
-  'opentelemetry-collector-mixin': fixOtelMetricDrift(
-    withConfig(import 'opentelemetry-collector-mixin/mixin.libsonnet')
-  ),
   // alloy-mixin: the default cluster/namespace selector is left alone because
   // the collectors label their own self-metrics with namespace and pod.
   // enableAlloyCluster is off because nothing is clustered yet: a per-node
