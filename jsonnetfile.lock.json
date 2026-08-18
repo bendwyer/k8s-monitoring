@@ -18,7 +18,7 @@
           "subdir": "grafana-mixin"
         }
       },
-      "version": "12cb42922a6c6604e62d5f9ed512fd0d9febf4ec",
+      "version": "39ca15a5540498652803c9bb3c4e76b87f931040",
       "sum": "sRjOJwJhhkCDmMQls7clo/csVix/b47W+Wc3YCzn64Y="
     },
     {
@@ -168,7 +168,7 @@
           "subdir": "operations/mimir-mixin"
         }
       },
-      "version": "e779edd0d00dcd518f0193d7d066bc4a64e92aea",
+      "version": "7b00c677177bf36fba9bf31948a07557a5a6d5ed",
       "sum": "JWI1ZnyB23osWGvBgBOx2lZ0KSPCVkrMfXAQAsad++k="
     },
     {
@@ -178,8 +178,8 @@
           "subdir": "operations/rollout-operator-mixin"
         }
       },
-      "version": "199b27845ed7b8e218a729cd889f0f36802868ed",
-      "sum": "+A9iB+GdwZepQWGYAq/hinLOcdWQQQaApATnzvDMJEE="
+      "version": "234a94aa905fa93a388ffa60ec2e30d4f73f7ac2",
+      "sum": "GMIfTQOraVZpYR9HSjRUa6alOpoFoWB2gfoxugAWkR8="
     },
     {
       "source": {
