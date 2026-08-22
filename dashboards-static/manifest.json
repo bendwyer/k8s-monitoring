@@ -1,4 +1,11 @@
 {
+  "agentgateway": {
+    "repo": "agentgateway/agentgateway",
+    "version": "97369ca115e3a1393ce48c6ab35fd192afa76425",
+    "files": {
+      "agentgateway.json": "controller/install/helm/agentgateway/files/agentgateway-dashboard.json"
+    }
+  },
   "flux": {
     "version": "1.1.2",
     "files": [

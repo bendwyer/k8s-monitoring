@@ -23,12 +23,26 @@ dashboards: vendor
 	@for artifact in $(MIXIN_ARTIFACTS); do mkdir -p $(DASHBOARDS_DIR)/$$artifact; done
 	jsonnet -J vendor -m $(DASHBOARDS_DIR) lib/dashboards.jsonnet
 
+# An entry with "repo" is fetched at its pinned version, which is the git ref of
+# the last commit to touch the file, so a Renovate bump means the file changed.
+# Entries without one are local copies.
 dashboards-static:
 	@for artifact in $$(jq -r 'keys[]' $(STATIC_MANIFEST)); do \
 		mkdir -p $(DASHBOARDS_DIR)/$$artifact; \
-		for file in $$(jq -r ".\"$$artifact\".files[]" $(STATIC_MANIFEST)); do \
-			cp dashboards-static/$$file $(DASHBOARDS_DIR)/$$artifact/; \
-		done; \
+		repo=$$(jq -r ".\"$$artifact\".repo // empty" $(STATIC_MANIFEST)); \
+		if [ -n "$$repo" ]; then \
+			ref=$$(jq -r ".\"$$artifact\".version" $(STATIC_MANIFEST)); \
+			for name in $$(jq -r ".\"$$artifact\".files | keys[]" $(STATIC_MANIFEST)); do \
+				path=$$(jq -r ".\"$$artifact\".files[\"$$name\"]" $(STATIC_MANIFEST)); \
+				curl -sfSL "https://raw.githubusercontent.com/$$repo/$$ref/$$path" \
+					-o $(DASHBOARDS_DIR)/$$artifact/$$name || exit 1; \
+				echo "$(DASHBOARDS_DIR)/$$artifact/$$name (from $$repo@$$ref)"; \
+			done; \
+		else \
+			for file in $$(jq -r ".\"$$artifact\".files[]" $(STATIC_MANIFEST)); do \
+				cp dashboards-static/$$file $(DASHBOARDS_DIR)/$$artifact/; \
+			done; \
+		fi; \
 	done
 
 alerts: vendor

@@ -21,6 +21,13 @@
       "transformTemplates": [
         "{ \"releases\": [{ \"version\": $[0].sha, \"releaseTimestamp\": $[0].commit.committer.date }] }"
       ]
+    },
+    "github-file-commits": {
+      "defaultRegistryUrlTemplate": "https://api.github.com/repos/{{packageName}}/commits?per_page=1",
+      "format": "json",
+      "transformTemplates": [
+        "{ \"releases\": [{ \"version\": $[0].sha, \"releaseTimestamp\": $[0].commit.committer.date }] }"
+      ]
     }
   },
   "customManagers": [
@@ -33,6 +40,17 @@
       ],
       "datasourceTemplate": "custom.jsonnet-libs-subdir",
       "packageNameTemplate": "{{depName}}",
+      "versioningTemplate": "git"
+    },
+    {
+      "description": "Track commits to the fetched dashboard file itself, not upstream releases; agentgateway cuts ~1.75 releases a month but has changed this file twice ever. Tracks the first file in the entry.",
+      "customType": "regex",
+      "managerFilePatterns": ["/^dashboards-static\\/manifest\\.json$/"],
+      "matchStrings": [
+        "\"repo\":\\s*\"(?<depName>[^\"]+)\",\\s*\"version\":\\s*\"(?<currentValue>[a-f0-9]{40})\",\\s*\"files\":\\s*\\{\\s*\"[^\"]+\":\\s*\"(?<path>[^\"]+)\""
+      ],
+      "datasourceTemplate": "custom.github-file-commits",
+      "registryUrlTemplate": "https://api.github.com/repos/{{depName}}/commits?path={{path}}&per_page=1",
       "versioningTemplate": "git"
     }
   ],
