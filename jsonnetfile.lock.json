@@ -158,7 +158,7 @@
           "subdir": "production/loki-mixin"
         }
       },
-      "version": "5003600d7c787b5f047c8d1b0198559471b0caa5",
+      "version": "7a40404f32b3e6464c9cfc6cc7dd75a40f3931da",
       "sum": "eWbTcw/pDtp0PmKktHzTxMH4uS+7UwDmbKOypRyxlCM="
     },
     {
@@ -168,7 +168,7 @@
           "subdir": "operations/mimir-mixin"
         }
       },
-      "version": "b841a1193b83639d19ec8393c5e9b56bdb5f90b8",
+      "version": "db26a40877a54e7cb090f33a8d6fae59fac4c5bd",
       "sum": "4iw0+Ldyr+iGZV7ZYzhieM1s5XC/N3lKe4K878wTbTM="
     },
     {
