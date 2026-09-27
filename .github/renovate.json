@@ -43,7 +43,7 @@
       "versioningTemplate": "git"
     },
     {
-      "description": "Track commits to the fetched dashboard file itself, not upstream releases; agentgateway cuts ~1.75 releases a month but has changed this file twice ever. Tracks the first file in the entry.",
+      "description": "Track commits to a fetched dashboard file itself, not upstream releases: a project can release often while rarely changing its dashboard. Tracks the first file in the entry.",
       "customType": "regex",
       "managerFilePatterns": ["/^dashboards-static\\/manifest\\.json$/"],
       "matchStrings": [
