@@ -8,7 +8,7 @@
           "subdir": "operations/alloy-mixin"
         }
       },
-      "version": "95e12cf8961fabc9db6858f7e79bde5c814a07a0",
+      "version": "edc36e47f9be60ecbfbfc7daf31c54fbc6e2a9d3",
       "sum": "9GPyRYWUKMR3JtgYmvO0H5AKf1hAgIinUjtrZAFpCl0="
     },
     {
@@ -168,7 +168,7 @@
           "subdir": "operations/mimir-mixin"
         }
       },
-      "version": "dfa9edff0943e6e7a21048d65445b43cfd2f4f89",
+      "version": "c2e5b64445b1a37b4a6763ef35f50b0645233a65",
       "sum": "Xg5jqts88IP8xVYrmBIlqFlToUyDKquWQRJGQEgTR4o="
     },
     {
@@ -178,7 +178,7 @@
           "subdir": "operations/rollout-operator-mixin"
         }
       },
-      "version": "0bd39d3cfd028eec2202f0eabcfaf918ea4fd1d7",
+      "version": "0d34defc49febc3f27752b1f1535e3f8cc6b2207",
       "sum": "4nyBZODMI6w7P4YuF3c+VVsPH+IXXOFJjEU4woURrKQ="
     },
     {
@@ -228,7 +228,7 @@
           "subdir": "jsonnet/kube-prometheus/lib"
         }
       },
-      "version": "f490691299af4238069d0c143403882d6e734a84",
+      "version": "f81c076ab8f542c457840cd4c62656b8d6b4f43a",
       "sum": "0mD7V+3jCnIp+OZF/g+EwtS6BgUW2r2bNAdwQ8uulGA="
     },
     {
