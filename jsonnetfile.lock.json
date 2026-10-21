@@ -8,7 +8,7 @@
           "subdir": "operations/alloy-mixin"
         }
       },
-      "version": "edc36e47f9be60ecbfbfc7daf31c54fbc6e2a9d3",
+      "version": "bd570c68ab36fd1328a7d50e79a4e70932a84c54",
       "sum": "9GPyRYWUKMR3JtgYmvO0H5AKf1hAgIinUjtrZAFpCl0="
     },
     {
@@ -168,7 +168,7 @@
           "subdir": "operations/mimir-mixin"
         }
       },
-      "version": "f26617176f3ae718ae8367fcd8a132849c03de21",
+      "version": "25d6034625abaa121770e8fef86c123d7034311d",
       "sum": "Xg5jqts88IP8xVYrmBIlqFlToUyDKquWQRJGQEgTR4o="
     },
     {
