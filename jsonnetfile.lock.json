@@ -88,7 +88,7 @@
           "subdir": "common-lib"
         }
       },
-      "version": "74c55e5f503a1f84eb939f7c421e366d04f25961",
+      "version": "bd398773cea29985fb1758e0b3f0bf49b2da4e51",
       "sum": "GhrW1n42GrYIh+O1mb5s7fEwvMWeiebA4hIPgnIRpLk="
     },
     {
@@ -98,7 +98,7 @@
           "subdir": "grafana-builder"
         }
       },
-      "version": "74c55e5f503a1f84eb939f7c421e366d04f25961",
+      "version": "bd398773cea29985fb1758e0b3f0bf49b2da4e51",
       "sum": "FqEJAICz9T90PMJLW8i4HXazyWQPNzi68A8UauXa7GQ="
     },
     {
@@ -108,7 +108,7 @@
           "subdir": "logs-lib"
         }
       },
-      "version": "74c55e5f503a1f84eb939f7c421e366d04f25961",
+      "version": "bd398773cea29985fb1758e0b3f0bf49b2da4e51",
       "sum": "rgzaIMC4Gujx86mPdsVfQnzSfxzfuCg/sZPrDJBV3bU="
     },
     {
@@ -118,7 +118,7 @@
           "subdir": "logs-lib/"
         }
       },
-      "version": "74c55e5f503a1f84eb939f7c421e366d04f25961",
+      "version": "bd398773cea29985fb1758e0b3f0bf49b2da4e51",
       "sum": "rgzaIMC4Gujx86mPdsVfQnzSfxzfuCg/sZPrDJBV3bU="
     },
     {
@@ -128,7 +128,7 @@
           "subdir": "logs-lib/logs"
         }
       },
-      "version": "74c55e5f503a1f84eb939f7c421e366d04f25961",
+      "version": "bd398773cea29985fb1758e0b3f0bf49b2da4e51",
       "sum": "GkY3L75913fiYk9+Rq/R1JEaHEwkFrtvufIWhJZ6MP8="
     },
     {
@@ -138,7 +138,7 @@
           "subdir": "mixin-utils"
         }
       },
-      "version": "74c55e5f503a1f84eb939f7c421e366d04f25961",
+      "version": "bd398773cea29985fb1758e0b3f0bf49b2da4e51",
       "sum": "pdZBifAdc1FjwhKRZIpSF/Hi2C9P9nsExGJxgxNHGRk="
     },
     {
@@ -158,7 +158,7 @@
           "subdir": "production/loki-mixin"
         }
       },
-      "version": "09e6ce2ff1bdc19763a10265b870c86f51c98655",
+      "version": "d3b4a2f76bfc5625abee7ceb00b8896fa3c31549",
       "sum": "eWbTcw/pDtp0PmKktHzTxMH4uS+7UwDmbKOypRyxlCM="
     },
     {
@@ -168,7 +168,7 @@
           "subdir": "operations/mimir-mixin"
         }
       },
-      "version": "c2e5b64445b1a37b4a6763ef35f50b0645233a65",
+      "version": "5711b89482fcbf4ce968c9d15d259380c9140a6a",
       "sum": "Xg5jqts88IP8xVYrmBIlqFlToUyDKquWQRJGQEgTR4o="
     },
     {
