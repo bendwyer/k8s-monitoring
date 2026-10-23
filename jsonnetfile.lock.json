@@ -8,7 +8,7 @@
           "subdir": "operations/alloy-mixin"
         }
       },
-      "version": "bd570c68ab36fd1328a7d50e79a4e70932a84c54",
+      "version": "a69b1aedfa5713d308344ddadb72507268721004",
       "sum": "9GPyRYWUKMR3JtgYmvO0H5AKf1hAgIinUjtrZAFpCl0="
     },
     {
@@ -168,8 +168,8 @@
           "subdir": "operations/mimir-mixin"
         }
       },
-      "version": "25d6034625abaa121770e8fef86c123d7034311d",
-      "sum": "Xg5jqts88IP8xVYrmBIlqFlToUyDKquWQRJGQEgTR4o="
+      "version": "0c0ff58d6cb6178d55420131011d298698685e77",
+      "sum": "eFxCPBg3tgvgzvHg6IZdk0qkBSFQGagJtmYlUUUUtyg="
     },
     {
       "source": {
@@ -178,7 +178,7 @@
           "subdir": "operations/rollout-operator-mixin"
         }
       },
-      "version": "af28b8170099e74428565f09351a531dd34a3acf",
+      "version": "149384118620d6f25a18ae9c80b7bb6fc579a092",
       "sum": "4nyBZODMI6w7P4YuF3c+VVsPH+IXXOFJjEU4woURrKQ="
     },
     {
