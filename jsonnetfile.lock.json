@@ -88,7 +88,7 @@
           "subdir": "common-lib"
         }
       },
-      "version": "2dd6eec71725afdba6c7b7c55bf08e9b87bb2cf0",
+      "version": "57ec11866eec43e9c0489ba53773fa9e793228c4",
       "sum": "dq5hnW9ix5zWSdocUkx0FMiVPVj95pKc0XP1j+vh9uw="
     },
     {
@@ -98,7 +98,7 @@
           "subdir": "grafana-builder"
         }
       },
-      "version": "2dd6eec71725afdba6c7b7c55bf08e9b87bb2cf0",
+      "version": "57ec11866eec43e9c0489ba53773fa9e793228c4",
       "sum": "FqEJAICz9T90PMJLW8i4HXazyWQPNzi68A8UauXa7GQ="
     },
     {
@@ -108,7 +108,7 @@
           "subdir": "logs-lib"
         }
       },
-      "version": "2dd6eec71725afdba6c7b7c55bf08e9b87bb2cf0",
+      "version": "57ec11866eec43e9c0489ba53773fa9e793228c4",
       "sum": "rgzaIMC4Gujx86mPdsVfQnzSfxzfuCg/sZPrDJBV3bU="
     },
     {
@@ -118,7 +118,7 @@
           "subdir": "logs-lib/"
         }
       },
-      "version": "2dd6eec71725afdba6c7b7c55bf08e9b87bb2cf0",
+      "version": "57ec11866eec43e9c0489ba53773fa9e793228c4",
       "sum": "rgzaIMC4Gujx86mPdsVfQnzSfxzfuCg/sZPrDJBV3bU="
     },
     {
@@ -128,7 +128,7 @@
           "subdir": "logs-lib/logs"
         }
       },
-      "version": "2dd6eec71725afdba6c7b7c55bf08e9b87bb2cf0",
+      "version": "57ec11866eec43e9c0489ba53773fa9e793228c4",
       "sum": "GkY3L75913fiYk9+Rq/R1JEaHEwkFrtvufIWhJZ6MP8="
     },
     {
@@ -138,7 +138,7 @@
           "subdir": "mixin-utils"
         }
       },
-      "version": "2dd6eec71725afdba6c7b7c55bf08e9b87bb2cf0",
+      "version": "57ec11866eec43e9c0489ba53773fa9e793228c4",
       "sum": "pdZBifAdc1FjwhKRZIpSF/Hi2C9P9nsExGJxgxNHGRk="
     },
     {
@@ -168,8 +168,8 @@
           "subdir": "operations/mimir-mixin"
         }
       },
-      "version": "d929d21700762d7d1949d17efbef657c86a925ff",
-      "sum": "x8fEmWW6BL6Uvgr3q1Nf5G9WJKSqV9Lhd/wWKbLKtFs="
+      "version": "352702b21638d7418e38af7cbc0c50b2a45cb100",
+      "sum": "qmvhgweqlFHKHYvfqj1Zb8wO0oR7fmqKB/IcDNw+VZQ="
     },
     {
       "source": {
@@ -238,7 +238,7 @@
           "subdir": "doc/alertmanager-mixin"
         }
       },
-      "version": "35aab4b30bd2c50bc058d58fcb9fe817893f9ea5",
+      "version": "828ea7d5a1b84ea3b41733c2a50d03a3b38d8257",
       "sum": "n7AFz0BnWumd8hvjTG7GWQh7+Jywq9fy5z1mUDD67o8="
     },
     {
