@@ -88,7 +88,7 @@
           "subdir": "common-lib"
         }
       },
-      "version": "42ac666f6142e29c9239d068de45711d4a0af83f",
+      "version": "7065b6fe6e4bb633d6b60166346e5418eae3237f",
       "sum": "84pwNXUu7Vb+Dr7BPUu+2DNjGxUOhscaA6mP41yDhr4="
     },
     {
@@ -98,7 +98,7 @@
           "subdir": "grafana-builder"
         }
       },
-      "version": "42ac666f6142e29c9239d068de45711d4a0af83f",
+      "version": "7065b6fe6e4bb633d6b60166346e5418eae3237f",
       "sum": "FqEJAICz9T90PMJLW8i4HXazyWQPNzi68A8UauXa7GQ="
     },
     {
@@ -108,7 +108,7 @@
           "subdir": "logs-lib"
         }
       },
-      "version": "42ac666f6142e29c9239d068de45711d4a0af83f",
+      "version": "7065b6fe6e4bb633d6b60166346e5418eae3237f",
       "sum": "rgzaIMC4Gujx86mPdsVfQnzSfxzfuCg/sZPrDJBV3bU="
     },
     {
@@ -118,7 +118,7 @@
           "subdir": "logs-lib/"
         }
       },
-      "version": "42ac666f6142e29c9239d068de45711d4a0af83f",
+      "version": "7065b6fe6e4bb633d6b60166346e5418eae3237f",
       "sum": "rgzaIMC4Gujx86mPdsVfQnzSfxzfuCg/sZPrDJBV3bU="
     },
     {
@@ -128,7 +128,7 @@
           "subdir": "logs-lib/logs"
         }
       },
-      "version": "42ac666f6142e29c9239d068de45711d4a0af83f",
+      "version": "7065b6fe6e4bb633d6b60166346e5418eae3237f",
       "sum": "GkY3L75913fiYk9+Rq/R1JEaHEwkFrtvufIWhJZ6MP8="
     },
     {
@@ -138,7 +138,7 @@
           "subdir": "mixin-utils"
         }
       },
-      "version": "42ac666f6142e29c9239d068de45711d4a0af83f",
+      "version": "7065b6fe6e4bb633d6b60166346e5418eae3237f",
       "sum": "pdZBifAdc1FjwhKRZIpSF/Hi2C9P9nsExGJxgxNHGRk="
     },
     {
@@ -168,8 +168,8 @@
           "subdir": "operations/mimir-mixin"
         }
       },
-      "version": "5afbe37766e8b62335dc1fe3d7089f4466d927a8",
-      "sum": "zpHaN04OBQb4IfDnZEOqePks35pbDHNZVtfNrD5ClSk="
+      "version": "a6caab17c02353081ee5aaf64125c49fb0ff3acf",
+      "sum": "0uPYaHvoRAIx5yoPIMFfkDLRSQd+nYCM5nGuNM4MAW8="
     },
     {
       "source": {
@@ -248,7 +248,7 @@
           "subdir": "docs/node-mixin"
         }
       },
-      "version": "9ef98c308d730f72bb39a840cf444701075c7fe3",
+      "version": "88ebf0bd30102332509e170deae999ca2aa19784",
       "sum": "PGx1okd1Ny4U+Ma3AV0haZWvXnX8eJBN4+BsQInWUo4="
     },
     {
